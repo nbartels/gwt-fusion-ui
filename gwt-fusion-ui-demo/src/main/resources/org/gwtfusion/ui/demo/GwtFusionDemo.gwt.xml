@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="gwtfusiondemo">
+  <inherits name="com.google.gwt.user.User"/>
+  <inherits name="org.gwtfusion.ui.GwtFusionUi"/>
+  <entry-point class="org.gwtfusion.ui.demo.DemoApp"/>
+  <source path=""/>
+</module>

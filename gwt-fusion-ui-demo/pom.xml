@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.gwtfusion</groupId>
+    <artifactId>gwt-fusion</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>gwt-fusion-ui-demo</artifactId>
+  <packaging>war</packaging>
+
+  <name>GWT Fusion UI Demo</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.gwtfusion</groupId>
+      <artifactId>gwt-fusion-ui</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.gwtproject</groupId>
+      <artifactId>gwt-user</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.gwtproject</groupId>
+      <artifactId>gwt-dev</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.4.0</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>demo</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>net.ltgt.gwt.maven</groupId>
+            <artifactId>gwt-maven-plugin</artifactId>
+            <version>1.1.0</version>
+            <extensions>true</extensions>
+            <configuration>
+              <moduleName>org.gwtfusion.ui.demo.GwtFusionDemo</moduleName>
+            </configuration>
+            <executions>
+              <execution>
+                <id>compile-demo</id>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>compile</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

@@ -1,0 +1,11 @@
+{
+  "name": "@gwtfusion/ui",
+  "version": "0.1.0-SNAPSHOT",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -c tailwind.config.js -i src/main/tailwind/gwt-fusion-ui.css -o target/generated-resources/META-INF/resources/gwt-fusion-ui/gwt-fusion-ui.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.13"
+  }
+}

@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.gwtfusion</groupId>
+  <artifactId>gwt-fusion</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>GWT Fusion</name>
+  <description>GWT/J2CL compatible UI components inspired by shadcn and styled with Tailwind CSS.</description>
+
+  <modules>
+    <module>gwt-fusion-ui</module>
+    <module>gwt-fusion-ui-demo</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.release>11</maven.compiler.release>
+    <gwt.version>2.13.0</gwt.version>
+    <elemental2.version>1.2.0</elemental2.version>
+    <junit.version>5.10.3</junit.version>
+    <frontend.maven.plugin.version>1.15.0</frontend.maven.plugin.version>
+    <node.version>v20.12.2</node.version>
+    <skip.tailwind>false</skip.tailwind>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.gwtproject</groupId>
+        <artifactId>gwt-user</artifactId>
+        <version>${gwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.gwtproject</groupId>
+        <artifactId>gwt-dev</artifactId>
+        <version>${gwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.elemental2</groupId>
+        <artifactId>elemental2-dom</artifactId>
+        <version>${elemental2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.13.0</version>
+          <configuration>
+            <release>${maven.compiler.release}</release>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.2.5</version>
+          <configuration>
+            <useModulePath>false</useModulePath>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>j2cl-compat</id>
+      <properties>
+        <skip.tailwind>true</skip.tailwind>
+      </properties>
+    </profile>
+  </profiles>
+</project>
