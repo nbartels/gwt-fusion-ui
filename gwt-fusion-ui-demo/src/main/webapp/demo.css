@@ -46,7 +46,7 @@ pre {
 .demo-content {
   display: grid;
   gap: 1.5rem;
-  max-width: 56rem;
+  max-width: 78rem;
 }
 
 .demo-hero {
@@ -70,7 +70,7 @@ pre {
 .demo-grid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  grid-template-columns: 1fr;
 }
 
 .demo-example {
@@ -79,6 +79,18 @@ pre {
   display: grid;
   gap: 1rem;
   padding: 1rem;
+}
+
+.demo-example h2 {
+  font-size: 1.05rem;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.demo-example-body {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, .95fr);
 }
 
 .demo-preview {
@@ -92,17 +104,30 @@ pre {
   padding: 1rem;
 }
 
+.demo-preview input {
+  max-width: 22rem;
+}
+
+.demo-preview [role="alert"] {
+  width: 100%;
+}
+
 .demo-code {
   background: hsl(var(--muted));
   border-radius: .5rem;
   color: hsl(var(--foreground));
   overflow: auto;
   padding: 1rem;
+  tab-size: 2;
   white-space: pre-wrap;
 }
 
 @media (max-width: 760px) {
   .demo-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-example-body {
     grid-template-columns: 1fr;
   }
 }

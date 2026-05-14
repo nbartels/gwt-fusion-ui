@@ -1,0 +1,61 @@
+name: Deploy Demo
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+
+      - name: Build UI CSS
+        run: mvn -pl gwt-fusion-ui generate-resources
+
+      - name: Build GWT demo
+        run: mvn -Pdemo -pl gwt-fusion-ui-demo -am -Dskip.tailwind=true package
+
+      - name: Prepare static site
+        run: |
+          mkdir -p site
+          cp -R gwt-fusion-ui-demo/target/gwt-fusion-ui-demo-0.1.0-SNAPSHOT/* site/
+          mkdir -p site/gwt-fusion-ui
+          cp gwt-fusion-ui/target/generated-resources/META-INF/resources/gwt-fusion-ui/gwt-fusion-ui.css site/gwt-fusion-ui/gwt-fusion-ui.css
+          rm -rf site/WEB-INF site/META-INF
+          touch site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -7,6 +7,7 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import org.gwtfusion.ui.UiComponent;
 import org.gwtfusion.ui.component.alert.Alert;
+import org.gwtfusion.ui.component.alert.AlertVariant;
 import org.gwtfusion.ui.component.badge.Badge;
 import org.gwtfusion.ui.component.badge.BadgeVariant;
 import org.gwtfusion.ui.component.button.Button;
@@ -16,6 +17,7 @@ import org.gwtfusion.ui.component.card.Card;
 import org.gwtfusion.ui.component.input.Input;
 import org.gwtfusion.ui.component.label.Label;
 import org.gwtfusion.ui.component.separator.Separator;
+import org.gwtfusion.ui.component.separator.SeparatorOrientation;
 import org.gwtfusion.ui.theme.ThemeManager;
 import org.gwtfusion.ui.theme.ThemeMode;
 
@@ -87,22 +89,40 @@ public final class DemoApp implements EntryPoint {
     private void renderComponents() {
         clearContent();
         content.appendChild(textElement("h1", "", "Komponenten"));
+        content.appendChild(textElement("p", "demo-muted", "Jedes Beispiel zeigt links die gerenderte Komponente und rechts den dazugehoerigen Java-Code. Varianten und Groessen sind bewusst nebeneinander sichtbar."));
         HTMLElement grid = element("div", "demo-grid");
 
         HTMLElement buttons = preview();
         buttons.appendChild(Button.create("Default").element());
+        buttons.appendChild(Button.create("Destructive").variant(ButtonVariant.DESTRUCTIVE).element());
         buttons.appendChild(Button.create("Secondary").variant(ButtonVariant.SECONDARY).element());
         buttons.appendChild(Button.create("Outline").variant(ButtonVariant.OUTLINE).element());
+        buttons.appendChild(Button.create("Ghost").variant(ButtonVariant.GHOST).element());
+        buttons.appendChild(Button.create("Link").variant(ButtonVariant.LINK).element());
         buttons.appendChild(Button.create("Small").size(ButtonSize.SM).element());
+        buttons.appendChild(Button.create("Large").size(ButtonSize.LG).element());
+        buttons.appendChild(Button.create("Disabled").disabled(true).element());
         grid.appendChild(example("Button", buttons,
-                "Button.create(\"Default\");\nButton.create(\"Secondary\").variant(ButtonVariant.SECONDARY);\nButton.create(\"Small\").size(ButtonSize.SM);"));
+                "Button.create(\"Default\");\n"
+                        + "Button.create(\"Destructive\").variant(ButtonVariant.DESTRUCTIVE);\n"
+                        + "Button.create(\"Secondary\").variant(ButtonVariant.SECONDARY);\n"
+                        + "Button.create(\"Outline\").variant(ButtonVariant.OUTLINE);\n"
+                        + "Button.create(\"Ghost\").variant(ButtonVariant.GHOST);\n"
+                        + "Button.create(\"Link\").variant(ButtonVariant.LINK);\n"
+                        + "Button.create(\"Small\").size(ButtonSize.SM);\n"
+                        + "Button.create(\"Large\").size(ButtonSize.LG);\n"
+                        + "Button.create(\"Disabled\").disabled(true);"));
 
         HTMLElement badges = preview();
         badges.appendChild(Badge.create("Default").element());
         badges.appendChild(Badge.create("Secondary").variant(BadgeVariant.SECONDARY).element());
+        badges.appendChild(Badge.create("Destructive").variant(BadgeVariant.DESTRUCTIVE).element());
         badges.appendChild(Badge.create("Outline").variant(BadgeVariant.OUTLINE).element());
         grid.appendChild(example("Badge", badges,
-                "Badge.create(\"Default\");\nBadge.create(\"Secondary\").variant(BadgeVariant.SECONDARY);"));
+                "Badge.create(\"Default\");\n"
+                        + "Badge.create(\"Secondary\").variant(BadgeVariant.SECONDARY);\n"
+                        + "Badge.create(\"Destructive\").variant(BadgeVariant.DESTRUCTIVE);\n"
+                        + "Badge.create(\"Outline\").variant(BadgeVariant.OUTLINE);"));
 
         Card card = Card.create()
                 .add(Card.header()
@@ -115,16 +135,44 @@ public final class DemoApp implements EntryPoint {
         HTMLElement form = preview();
         form.appendChild(Label.create("E-Mail").forId("email-demo").element());
         form.appendChild(Input.create().type("email").placeholder("name@example.com").attr("id", "email-demo").element());
+        form.appendChild(Input.create().type("text").value("Mit Wert").element());
+        form.appendChild(Input.create().type("password").placeholder("Passwort").element());
         grid.appendChild(example("Input", form,
-                "Label.create(\"E-Mail\").forId(\"email-demo\");\nInput.create().type(\"email\").placeholder(\"name@example.com\");"));
+                "Label.create(\"E-Mail\").forId(\"email-demo\");\n"
+                        + "Input.create()\n"
+                        + "    .type(\"email\")\n"
+                        + "    .placeholder(\"name@example.com\")\n"
+                        + "    .attr(\"id\", \"email-demo\");\n"
+                        + "Input.create().type(\"text\").value(\"Mit Wert\");\n"
+                        + "Input.create().type(\"password\").placeholder(\"Passwort\");"));
 
-        Alert alert = Alert.create()
+        HTMLElement alerts = preview();
+        alerts.appendChild(Alert.create()
                 .add(Alert.title("Hinweis"))
-                .add(Alert.description("Alert-Komponenten nutzen Rollen und Theme Tokens."));
-        grid.appendChild(example("Alert", alert,
-                "Alert.create()\n    .add(Alert.title(\"Hinweis\"))\n    .add(Alert.description(\"Alert-Komponenten nutzen Rollen und Theme Tokens.\"));"));
+                .add(Alert.description("Alert-Komponenten nutzen Rollen und Theme Tokens."))
+                .element());
+        alerts.appendChild(Alert.create()
+                .variant(AlertVariant.DESTRUCTIVE)
+                .add(Alert.title("Fehler"))
+                .add(Alert.description("Destructive nutzt eine eigene Variante."))
+                .element());
+        grid.appendChild(example("Alert", alerts,
+                "Alert.create()\n"
+                        + "    .add(Alert.title(\"Hinweis\"))\n"
+                        + "    .add(Alert.description(\"Alert-Komponenten nutzen Rollen und Theme Tokens.\"));\n\n"
+                        + "Alert.create()\n"
+                        + "    .variant(AlertVariant.DESTRUCTIVE)\n"
+                        + "    .add(Alert.title(\"Fehler\"))\n"
+                        + "    .add(Alert.description(\"Destructive nutzt eine eigene Variante.\"));"));
 
-        grid.appendChild(example("Separator", Separator.create(), "Separator.create();"));
+        HTMLElement separators = preview();
+        separators.appendChild(Separator.create().element());
+        separators.appendChild(Separator.create().orientation(SeparatorOrientation.VERTICAL).classes("mx-4 min-h-12").element());
+        grid.appendChild(example("Separator", separators,
+                "Separator.create();\n"
+                        + "Separator.create()\n"
+                        + "    .orientation(SeparatorOrientation.VERTICAL)\n"
+                        + "    .classes(\"mx-4 min-h-12\");"));
         content.appendChild(grid);
     }
 
@@ -144,8 +192,10 @@ public final class DemoApp implements EntryPoint {
     private HTMLElement example(String title, HTMLElement preview, String code) {
         HTMLElement example = element("article", "demo-example");
         example.appendChild(textElement("h2", "", title));
-        example.appendChild(preview);
-        example.appendChild(code(code));
+        HTMLElement body = element("div", "demo-example-body");
+        body.appendChild(preview);
+        body.appendChild(code(code));
+        example.appendChild(body);
         return example;
     }
 
