@@ -37,13 +37,13 @@ public final class DemoApp implements EntryPoint {
         HTMLElement shell = element("div", "demo-shell");
         HTMLElement header = element("header", "demo-header");
         header.appendChild(textElement("div", "demo-brand", "GWT Fusion UI"));
-        header.appendChild(Button.create("Theme wechseln").variant(ButtonVariant.OUTLINE).onClick(event -> toggleTheme()).element());
+        header.appendChild(Button.create("Toggle theme").variant(ButtonVariant.OUTLINE).onClick(event -> toggleTheme()).element());
         shell.appendChild(header);
 
         HTMLElement layout = element("div", "demo-layout");
         HTMLElement nav = element("nav", "demo-nav");
-        nav.appendChild(Button.create("Start").variant(ButtonVariant.GHOST).onClick(event -> renderHome()).element());
-        nav.appendChild(Button.create("Komponenten").variant(ButtonVariant.GHOST).onClick(event -> renderComponentsAsync()).element());
+        nav.appendChild(Button.create("Home").variant(ButtonVariant.GHOST).onClick(event -> renderHome()).element());
+        nav.appendChild(Button.create("Components").variant(ButtonVariant.GHOST).onClick(event -> renderComponentsAsync()).element());
         nav.appendChild(Button.create("Theme").variant(ButtonVariant.GHOST).onClick(event -> renderTheme()).element());
         layout.appendChild(nav);
 
@@ -61,22 +61,22 @@ public final class DemoApp implements EntryPoint {
     private void renderHome() {
         clearContent();
         HTMLElement hero = element("div", "demo-hero");
-        hero.appendChild(textElement("h1", "", "GWT UI-Komponenten mit Tailwind-DNA"));
-        hero.appendChild(textElement("p", "demo-muted", "Eine DOM-basierte Komponentenbibliothek fuer GWT 2.13 und J2CL-kompatible Anwendungen. Die API ist Java-typisch, die Styles folgen Tailwind und shadcn-inspirierten Theme Tokens."));
+        hero.appendChild(textElement("h1", "", "GWT UI components with Tailwind DNA"));
+        hero.appendChild(textElement("p", "demo-muted", "A DOM-based component library for GWT 2.13 and J2CL-compatible applications. The API feels natural in Java, while the styling follows Tailwind and shadcn-inspired theme tokens."));
         content.appendChild(hero);
 
-        content.appendChild(example("Erster Button",
-                Button.create("Speichern").variant(ButtonVariant.DEFAULT),
-                "Button.create(\"Speichern\")\n    .variant(ButtonVariant.DEFAULT);"));
+        content.appendChild(example("First button",
+                Button.create("Save").variant(ButtonVariant.DEFAULT),
+                "Button.create(\"Save\")\n    .variant(ButtonVariant.DEFAULT);"));
     }
 
     private void renderComponentsAsync() {
         clearContent();
-        content.appendChild(textElement("p", "demo-muted", "Komponenten werden in der Demo ueber GWT.runAsync geladen, damit Splitpoints frueh sichtbar bleiben."));
+        content.appendChild(textElement("p", "demo-muted", "Components are loaded through GWT.runAsync in this demo, making split points visible from the start."));
         GWT.runAsync(new RunAsyncCallback() {
             @Override
             public void onFailure(Throwable reason) {
-                content.appendChild(textElement("p", "demo-muted", "Komponenten konnten nicht geladen werden: " + reason.getMessage()));
+                content.appendChild(textElement("p", "demo-muted", "Components could not be loaded: " + reason.getMessage()));
             }
 
             @Override
@@ -88,8 +88,8 @@ public final class DemoApp implements EntryPoint {
 
     private void renderComponents() {
         clearContent();
-        content.appendChild(textElement("h1", "", "Komponenten"));
-        content.appendChild(textElement("p", "demo-muted", "Jedes Beispiel zeigt links die gerenderte Komponente und rechts den dazugehoerigen Java-Code. Varianten und Groessen sind bewusst nebeneinander sichtbar."));
+        content.appendChild(textElement("h1", "", "Components"));
+        content.appendChild(textElement("p", "demo-muted", "Each example shows the rendered component on the left and the matching Java code on the right. Variants and sizes are intentionally shown side by side."));
         HTMLElement grid = element("div", "demo-grid");
 
         HTMLElement buttons = preview();
@@ -127,43 +127,43 @@ public final class DemoApp implements EntryPoint {
         Card card = Card.create()
                 .add(Card.header()
                         .add(Card.title("Card Title"))
-                        .add(Card.description("Strukturierte Flaeche fuer Inhalte.")))
-                .add(Card.content().add(Button.create("Aktion")));
+                        .add(Card.description("A structured surface for related content.")))
+                .add(Card.content().add(Button.create("Action")));
         grid.appendChild(example("Card", card,
-                "Card.create()\n    .add(Card.header()\n        .add(Card.title(\"Card Title\"))\n        .add(Card.description(\"Strukturierte Flaeche fuer Inhalte.\")))\n    .add(Card.content().add(Button.create(\"Aktion\")));"));
+                "Card.create()\n    .add(Card.header()\n        .add(Card.title(\"Card Title\"))\n        .add(Card.description(\"A structured surface for related content.\")))\n    .add(Card.content().add(Button.create(\"Action\")));"));
 
         HTMLElement form = preview();
-        form.appendChild(Label.create("E-Mail").forId("email-demo").element());
+        form.appendChild(Label.create("Email").forId("email-demo").element());
         form.appendChild(Input.create().type("email").placeholder("name@example.com").attr("id", "email-demo").element());
-        form.appendChild(Input.create().type("text").value("Mit Wert").element());
-        form.appendChild(Input.create().type("password").placeholder("Passwort").element());
+        form.appendChild(Input.create().type("text").value("With value").element());
+        form.appendChild(Input.create().type("password").placeholder("Password").element());
         grid.appendChild(example("Input", form,
-                "Label.create(\"E-Mail\").forId(\"email-demo\");\n"
+                "Label.create(\"Email\").forId(\"email-demo\");\n"
                         + "Input.create()\n"
                         + "    .type(\"email\")\n"
                         + "    .placeholder(\"name@example.com\")\n"
                         + "    .attr(\"id\", \"email-demo\");\n"
-                        + "Input.create().type(\"text\").value(\"Mit Wert\");\n"
-                        + "Input.create().type(\"password\").placeholder(\"Passwort\");"));
+                        + "Input.create().type(\"text\").value(\"With value\");\n"
+                        + "Input.create().type(\"password\").placeholder(\"Password\");"));
 
         HTMLElement alerts = preview();
         alerts.appendChild(Alert.create()
-                .add(Alert.title("Hinweis"))
-                .add(Alert.description("Alert-Komponenten nutzen Rollen und Theme Tokens."))
+                .add(Alert.title("Heads up"))
+                .add(Alert.description("Alert components use roles and theme tokens."))
                 .element());
         alerts.appendChild(Alert.create()
                 .variant(AlertVariant.DESTRUCTIVE)
-                .add(Alert.title("Fehler"))
-                .add(Alert.description("Destructive nutzt eine eigene Variante."))
+                .add(Alert.title("Error"))
+                .add(Alert.description("The destructive style uses its own variant."))
                 .element());
         grid.appendChild(example("Alert", alerts,
                 "Alert.create()\n"
-                        + "    .add(Alert.title(\"Hinweis\"))\n"
-                        + "    .add(Alert.description(\"Alert-Komponenten nutzen Rollen und Theme Tokens.\"));\n\n"
+                        + "    .add(Alert.title(\"Heads up\"))\n"
+                        + "    .add(Alert.description(\"Alert components use roles and theme tokens.\"));\n\n"
                         + "Alert.create()\n"
                         + "    .variant(AlertVariant.DESTRUCTIVE)\n"
-                        + "    .add(Alert.title(\"Fehler\"))\n"
-                        + "    .add(Alert.description(\"Destructive nutzt eine eigene Variante.\"));"));
+                        + "    .add(Alert.title(\"Error\"))\n"
+                        + "    .add(Alert.description(\"The destructive style uses its own variant.\"));"));
 
         HTMLElement separators = preview();
         separators.appendChild(Separator.create().element());
@@ -179,9 +179,9 @@ public final class DemoApp implements EntryPoint {
     private void renderTheme() {
         clearContent();
         content.appendChild(textElement("h1", "", "Theme"));
-        content.appendChild(textElement("p", "demo-muted", "Themes werden ueber CSS-Variablen und die Root-Klasse .dark gesteuert. ThemeManager.setMode(...) ist die Java-API dafuer."));
+        content.appendChild(textElement("p", "demo-muted", "Themes are controlled through CSS variables and the root .dark class. ThemeManager.setMode(...) is the Java API for switching modes."));
         content.appendChild(example("ThemeManager",
-                Button.create("Dark Mode aktivieren").variant(ButtonVariant.OUTLINE).onClick(event -> ThemeManager.setMode(ThemeMode.DARK)),
+                Button.create("Enable dark mode").variant(ButtonVariant.OUTLINE).onClick(event -> ThemeManager.setMode(ThemeMode.DARK)),
                 "ThemeManager.setMode(ThemeMode.DARK);\nThemeManager.setMode(ThemeMode.LIGHT);\nThemeManager.setMode(ThemeMode.SYSTEM);"));
     }
 
