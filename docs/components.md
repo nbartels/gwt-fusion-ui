@@ -22,12 +22,24 @@
 - Slider
 - Tabs
 - CodeBlock
+- Accordion
+- Collapsible
+- AspectRatio
+- ButtonGroup
+- Breadcrumb
+- Pagination
+- ScrollArea
+- Toggle
+- ToggleGroup
+- Typography
 
 ## Naechste Kandidaten
 
 - InputOtp
 - Select
-- Accordion
+- NavigationMenu
+- Sidebar
+- Menubar
 - Dialog
 - Dropdown
 - Tooltip

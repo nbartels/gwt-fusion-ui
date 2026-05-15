@@ -176,6 +176,25 @@ pre {
   width: min(100%, 32rem);
 }
 
+.demo-aspect-preview > div {
+  width: min(100%, 24rem);
+}
+
+.demo-aspect-box {
+  align-items: center;
+  background: linear-gradient(135deg, hsl(var(--muted)), hsl(var(--accent)));
+  color: hsl(var(--foreground));
+  display: flex;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.demo-stack-preview {
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
 .demo-preview [role="alert"] {
   width: 100%;
 }

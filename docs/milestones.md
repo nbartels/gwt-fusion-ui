@@ -52,21 +52,21 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 
 ## Milestone 4: Layout And Navigation Components
 
-- [ ] Implement `Accordion`.
-- [ ] Decide whether `Collapsible` should be implemented before or inside `Accordion`.
-- [ ] Implement `Collapsible` if reusable.
-- [ ] Implement `AspectRatio`.
-- [ ] Implement `ButtonGroup`.
-- [ ] Implement `Breadcrumb`.
-- [ ] Implement `Pagination`.
-- [ ] Implement `ScrollArea`.
-- [ ] Implement `Toggle`.
-- [ ] Implement `ToggleGroup`.
-- [ ] Implement `Typography` styles/components.
-- [ ] Add navigation and layout examples to the demo.
-- [ ] Verify keyboard behavior for `Accordion`, `ToggleGroup`, and menu-like components.
-- [ ] Verify `mvn -Dskip.tailwind=true verify`.
-- [ ] Verify demo GWT compile.
+- [x] Implement `Accordion`.
+- [x] Decide whether `Collapsible` should be implemented before or inside `Accordion`.
+- [x] Implement `Collapsible` if reusable.
+- [x] Implement `AspectRatio`.
+- [x] Implement `ButtonGroup`.
+- [x] Implement `Breadcrumb`.
+- [x] Implement `Pagination`.
+- [x] Implement `ScrollArea`.
+- [x] Implement `Toggle`.
+- [x] Implement `ToggleGroup`.
+- [x] Implement `Typography` styles/components.
+- [x] Add navigation and layout examples to the demo.
+- [x] Verify keyboard behavior for `Accordion`, `ToggleGroup`, and menu-like components.
+- [x] Verify `mvn -Dskip.tailwind=true verify`.
+- [x] Verify demo GWT compile.
 
 ## Milestone 5: Icon System Foundation
 

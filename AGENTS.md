@@ -53,8 +53,8 @@ Dieses Repository enthaelt `gwt-fusion-ui`, eine UI-Komponentenbibliothek fuer G
 
 ## Aktueller Stand
 
-- Erste Komponenten: `Button`, `Badge`, `Card`, `Alert`, `Input`, `Label`, `Separator`, `Checkbox`, `Switch`, `Textarea`, `RadioGroup`, `FormField`, `NativeSelect`, `InputGroup`, `Slider`, `Tabs`, `CodeBlock`.
+- Erste Komponenten: `Button`, `Badge`, `Card`, `Alert`, `Input`, `Label`, `Separator`, `Checkbox`, `Switch`, `Textarea`, `RadioGroup`, `FormField`, `NativeSelect`, `InputGroup`, `Slider`, `Tabs`, `CodeBlock`, `Accordion`, `Collapsible`, `AspectRatio`, `ButtonGroup`, `Breadcrumb`, `Pagination`, `ScrollArea`, `Toggle`, `ToggleGroup`, `Typography`.
 - Basisklassen: `UiComponent`, `BaseComponent`, `CssClasses`, `ThemeManager`.
-- Demo: Startseite, Komponentenansicht mit Preview/Java-Code, Form-Foundation-Beispiele, Tabs-Beispiel, Themeansicht.
+- Demo: Startseite, Komponentenansicht mit kategorisierten Preview/Java-Code-Beispielen, Form-Foundation-Beispiele, Layout-/Navigation-Beispiele, Themeansicht.
 - Tailwind 3 ist eingerichtet und wird ueber `frontend-maven-plugin` ausgefuehrt.
-- Aktueller Arbeitsstand: Milestone 3 Demo Experience Upgrade ist auf Branch `milestone-3-demo-experience` in Arbeit.
+- Aktueller Arbeitsstand: Milestone 4 Layout And Navigation Components ist auf Branch `milestone-4-layout-navigation` in Arbeit.

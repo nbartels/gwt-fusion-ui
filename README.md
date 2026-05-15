@@ -63,6 +63,16 @@ ThemeManager.setMode(ThemeMode.DARK);
 - `Slider`
 - `Tabs`
 - `CodeBlock`
+- `Accordion`
+- `Collapsible`
+- `AspectRatio`
+- `ButtonGroup`
+- `Breadcrumb`
+- `Pagination`
+- `ScrollArea`
+- `Toggle`
+- `ToggleGroup`
+- `Typography`
 
 ## Designprinzipien
 
