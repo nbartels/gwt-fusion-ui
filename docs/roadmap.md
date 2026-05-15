@@ -75,6 +75,9 @@ Add structure for documentation pages and common application layouts.
 ### Implementation Notes
 
 - Implement `Tabs` early because it can improve the demo itself with `Preview` and `Code` tabs.
+- `Tabs` is implemented with ARIA roles and arrow-key navigation.
+- `CodeBlock` is implemented and used by the demo for Java snippets.
+- The demo keeps a two-column preview/code layout on desktop for scannability and uses the existing stacked layout on mobile.
 - `AspectRatio`, `ButtonGroup`, and `Typography` are low-interaction components and good candidates for early wins.
 - `Toggle` and `ToggleGroup` should expose pressed state and ARIA attributes.
 - `Collapsible` should be implemented before `Accordion` if a reusable open/closed primitive is useful.
@@ -178,6 +181,7 @@ Support tables, identity display, code examples, and dashboard-style content.
 ### Implementation Notes
 
 - Start with simple `Table`, `Avatar`, `Kbd`, and `CodeBlock`.
+- `CodeBlock` is already implemented for the demo and can be expanded later with syntax highlighting if needed.
 - `Item` should be a small display primitive for lists, command results, and menus if it proves reusable.
 - `Carousel` should be implemented after keyboard utilities exist.
 - `Chart` should be evaluated carefully because it may require a charting dependency or a lightweight SVG-first implementation.
@@ -402,15 +406,15 @@ The icon system should help position `gwt-fusion-ui` as:
 ## Recommended Next Order
 
 1. `InputOtp`
-2. `Tabs`
-3. `Accordion`
-4. `Tooltip`
-5. `Dialog`
-6. `DropdownMenu`
-7. `Select`
-8. `Toast`
-9. `Table`
-10. `Icon` foundation
+2. `Accordion`
+3. `Tooltip`
+4. `Dialog`
+5. `DropdownMenu`
+6. `Select`
+7. `Toast`
+8. `Table`
+9. `Icon` foundation
+10. `AspectRatio`
 
 ## shadcn/ui Parity Gaps
 

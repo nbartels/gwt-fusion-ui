@@ -15,6 +15,7 @@ import org.gwtfusion.ui.component.button.ButtonSize;
 import org.gwtfusion.ui.component.button.ButtonVariant;
 import org.gwtfusion.ui.component.card.Card;
 import org.gwtfusion.ui.component.checkbox.Checkbox;
+import org.gwtfusion.ui.component.code.CodeBlock;
 import org.gwtfusion.ui.component.form.FormField;
 import org.gwtfusion.ui.component.input.Input;
 import org.gwtfusion.ui.component.inputgroup.InputGroup;
@@ -26,6 +27,7 @@ import org.gwtfusion.ui.component.separator.Separator;
 import org.gwtfusion.ui.component.separator.SeparatorOrientation;
 import org.gwtfusion.ui.component.slider.Slider;
 import org.gwtfusion.ui.component.switcher.Switch;
+import org.gwtfusion.ui.component.tabs.Tabs;
 import org.gwtfusion.ui.component.textarea.Textarea;
 import org.gwtfusion.ui.theme.ThemeManager;
 import org.gwtfusion.ui.theme.ThemeMode;
@@ -132,6 +134,16 @@ public final class DemoApp implements EntryPoint {
                         + "Badge.create(\"Secondary\").variant(BadgeVariant.SECONDARY);\n"
                         + "Badge.create(\"Destructive\").variant(BadgeVariant.DESTRUCTIVE);\n"
                         + "Badge.create(\"Outline\").variant(BadgeVariant.OUTLINE);"));
+
+        HTMLElement tabPreview = preview("demo-tabs-preview");
+        tabPreview.appendChild(Tabs.create()
+                .addTab("preview", "Preview", raw(textElement("p", "demo-muted", "Tabs keep related panels in the same flow and support arrow-key navigation.")))
+                .addTab("code", "Code", CodeBlock.create("Tabs.create()\n    .addTab(\"preview\", \"Preview\", previewContent)\n    .addTab(\"code\", \"Code\", codeContent);").language("java"))
+                .element());
+        grid.appendChild(example("Tabs", tabPreview,
+                "Tabs.create()\n"
+                        + "    .addTab(\"preview\", \"Preview\", previewContent)\n"
+                        + "    .addTab(\"code\", \"Code\", codeContent);"));
 
         Card card = Card.create()
                 .add(Card.header()
@@ -377,9 +389,11 @@ public final class DemoApp implements EntryPoint {
     }
 
     private HTMLElement code(String code) {
-        HTMLElement pre = element("pre", "demo-code");
-        pre.textContent = code;
-        return pre;
+        return CodeBlock.create(code).language("java").classes("demo-code").element();
+    }
+
+    private UiComponent raw(HTMLElement element) {
+        return () -> element;
     }
 
     private HTMLElement labelled(String label, UiComponent component) {

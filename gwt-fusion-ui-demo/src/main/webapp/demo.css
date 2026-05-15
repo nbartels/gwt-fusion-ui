@@ -130,6 +130,10 @@ pre {
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
 }
 
+.demo-tabs-preview > div {
+  width: min(100%, 32rem);
+}
+
 .demo-preview [role="alert"] {
   width: 100%;
 }
