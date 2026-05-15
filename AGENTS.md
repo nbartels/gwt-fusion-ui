@@ -53,8 +53,8 @@ Dieses Repository enthaelt `gwt-fusion-ui`, eine UI-Komponentenbibliothek fuer G
 
 ## Aktueller Stand
 
-- Erste Komponenten: `Button`, `Badge`, `Card`, `Alert`, `Input`, `Label`, `Separator`, `Checkbox`, `Switch`, `Textarea`, `RadioGroup`.
+- Erste Komponenten: `Button`, `Badge`, `Card`, `Alert`, `Input`, `Label`, `Separator`, `Checkbox`, `Switch`, `Textarea`, `RadioGroup`, `FormField`, `NativeSelect`, `InputGroup`, `Slider`.
 - Basisklassen: `UiComponent`, `BaseComponent`, `CssClasses`, `ThemeManager`.
 - Demo: Startseite, Komponentenansicht mit Preview/Java-Code, Form-Foundation-Beispiele, Themeansicht.
 - Tailwind 3 ist eingerichtet und wird ueber `frontend-maven-plugin` ausgefuehrt.
-- Aktueller Arbeitsstand: Milestone 1 Form Foundation ist auf Branch `milestone-1-form-foundation` implementiert.
+- Aktueller Arbeitsstand: Milestone 2 Form Composition ist auf Branch `milestone-2-form-composition` in Arbeit.

@@ -6,8 +6,9 @@ import elemental2.dom.HTMLInputElement;
 import java.util.ArrayList;
 import java.util.List;
 import org.gwtfusion.ui.BaseComponent;
+import org.gwtfusion.ui.component.form.FormControl;
 
-public final class RadioGroup extends BaseComponent<RadioGroup> {
+public final class RadioGroup extends BaseComponent<RadioGroup> implements FormControl<RadioGroup> {
     public static final String OPTION_CLASSES = "inline-flex items-center gap-2 text-sm font-medium leading-none";
     public static final String INPUT_CLASSES = "h-4 w-4 border border-input text-primary accent-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
 

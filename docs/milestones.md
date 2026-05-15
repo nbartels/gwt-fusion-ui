@@ -21,20 +21,20 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 
 ## Milestone 2: Form Composition
 
-- [ ] Define whether form controls should share a small `FormControl` interface.
-- [ ] Implement `FormField`.
-- [ ] Implement `FormLabel` or align existing `Label` with form-field composition.
-- [ ] Implement `FormDescription`.
-- [ ] Implement `FormMessage`.
-- [ ] Implement `NativeSelect` as the simple native select option.
-- [ ] Implement `Select` as the richer styled select option or document why it depends on overlays.
-- [ ] Implement `InputGroup` as a composition primitive for `Input`, `Button`, icons, and addons.
-- [ ] Implement `Slider`.
-- [ ] Add combined form examples to the demo.
-- [ ] Add validation-state examples to the demo.
-- [ ] Verify Tailwind safelist/content coverage for all new classes.
-- [ ] Verify `mvn -Dskip.tailwind=true verify`.
-- [ ] Verify demo GWT compile.
+- [x] Define whether form controls should share a small `FormControl` interface.
+- [x] Implement `FormField`.
+- [x] Implement `FormLabel` or align existing `Label` with form-field composition.
+- [x] Implement `FormDescription`.
+- [x] Implement `FormMessage`.
+- [x] Implement `NativeSelect` as the simple native select option.
+- [x] Implement `Select` as the richer styled select option or document why it depends on overlays.
+- [x] Implement `InputGroup` as a composition primitive for `Input`, `Button`, icons, and addons.
+- [x] Implement `Slider`.
+- [x] Add combined form examples to the demo.
+- [x] Add validation-state examples to the demo.
+- [x] Verify Tailwind safelist/content coverage for all new classes.
+- [x] Verify `mvn -Dskip.tailwind=true verify`.
+- [x] Verify demo GWT compile.
 
 ## Milestone 3: Demo Experience Upgrade
 

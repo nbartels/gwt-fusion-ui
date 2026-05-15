@@ -15,12 +15,16 @@ import org.gwtfusion.ui.component.button.ButtonSize;
 import org.gwtfusion.ui.component.button.ButtonVariant;
 import org.gwtfusion.ui.component.card.Card;
 import org.gwtfusion.ui.component.checkbox.Checkbox;
+import org.gwtfusion.ui.component.form.FormField;
 import org.gwtfusion.ui.component.input.Input;
+import org.gwtfusion.ui.component.inputgroup.InputGroup;
 import org.gwtfusion.ui.component.label.Label;
 import org.gwtfusion.ui.component.radio.RadioGroup;
 import org.gwtfusion.ui.component.radio.RadioGroupOrientation;
+import org.gwtfusion.ui.component.select.NativeSelect;
 import org.gwtfusion.ui.component.separator.Separator;
 import org.gwtfusion.ui.component.separator.SeparatorOrientation;
+import org.gwtfusion.ui.component.slider.Slider;
 import org.gwtfusion.ui.component.switcher.Switch;
 import org.gwtfusion.ui.component.textarea.Textarea;
 import org.gwtfusion.ui.theme.ThemeManager;
@@ -214,6 +218,95 @@ public final class DemoApp implements EntryPoint {
                         + "    .addOption(\"yearly\", \"Yearly\")\n"
                         + "    .value(\"yearly\");"));
 
+        HTMLElement selectPreview = preview();
+        selectPreview.appendChild(NativeSelect.create()
+                .name("role")
+                .option("admin", "Admin")
+                .option("editor", "Editor")
+                .option("viewer", "Viewer")
+                .value("editor")
+                .element());
+        selectPreview.appendChild(NativeSelect.create()
+                .option("", "Disabled select")
+                .disabled(true)
+                .element());
+        grid.appendChild(example("NativeSelect", selectPreview,
+                "NativeSelect.create()\n"
+                        + "    .name(\"role\")\n"
+                        + "    .option(\"admin\", \"Admin\")\n"
+                        + "    .option(\"editor\", \"Editor\")\n"
+                        + "    .option(\"viewer\", \"Viewer\")\n"
+                        + "    .value(\"editor\");\n\n"
+                        + "NativeSelect.create()\n"
+                        + "    .option(\"\", \"Disabled select\")\n"
+                        + "    .disabled(true);"));
+
+        HTMLElement inputGroups = preview();
+        inputGroups.appendChild(InputGroup.create()
+                .startText("https://")
+                .add(Input.create().placeholder("example.com"))
+                .element());
+        inputGroups.appendChild(InputGroup.create()
+                .add(Input.create().type("number").placeholder("Amount"))
+                .endText("EUR")
+                .element());
+        grid.appendChild(example("InputGroup", inputGroups,
+                "InputGroup.create()\n"
+                        + "    .startText(\"https://\")\n"
+                        + "    .add(Input.create().placeholder(\"example.com\"));\n\n"
+                        + "InputGroup.create()\n"
+                        + "    .add(Input.create().type(\"number\").placeholder(\"Amount\"))\n"
+                        + "    .endText(\"EUR\");"));
+
+        HTMLElement sliders = preview();
+        sliders.appendChild(Slider.create().name("volume").min(0).max(100).step(1).value(65).element());
+        sliders.appendChild(Slider.create().min(0).max(10).step(0.5).value(4.5).disabled(true).element());
+        grid.appendChild(example("Slider", sliders,
+                "Slider.create()\n"
+                        + "    .name(\"volume\")\n"
+                        + "    .min(0)\n"
+                        + "    .max(100)\n"
+                        + "    .step(1)\n"
+                        + "    .value(65);\n\n"
+                        + "Slider.create().min(0).max(10).step(0.5).value(4.5).disabled(true);"));
+
+        HTMLElement composedForm = preview("demo-form-preview");
+        composedForm.appendChild(FormField.create("profile-email")
+                .label("Email")
+                .control(Input.create().type("email").placeholder("name@example.com").required(true))
+                .description("Used for account notifications.")
+                .element());
+        composedForm.appendChild(FormField.create("profile-bio")
+                .label("Bio")
+                .control(Textarea.create().placeholder("Tell us about your work...").rows(3))
+                .description("Keep it short and specific.")
+                .element());
+        composedForm.appendChild(FormField.create("profile-role")
+                .label("Role")
+                .control(NativeSelect.create()
+                        .option("admin", "Admin")
+                        .option("editor", "Editor")
+                        .option("viewer", "Viewer")
+                        .value("viewer"))
+                .element());
+        composedForm.appendChild(FormField.create("profile-name")
+                .label("Validation state")
+                .control(Input.create().value("A").invalid(true))
+                .message("Name must contain at least 2 characters.")
+                .element());
+        grid.appendChild(example("Form composition", composedForm,
+                "FormField.create(\"profile-email\")\n"
+                        + "    .label(\"Email\")\n"
+                        + "    .control(Input.create()\n"
+                        + "        .type(\"email\")\n"
+                        + "        .placeholder(\"name@example.com\")\n"
+                        + "        .required(true))\n"
+                        + "    .description(\"Used for account notifications.\");\n\n"
+                        + "FormField.create(\"profile-name\")\n"
+                        + "    .label(\"Validation state\")\n"
+                        + "    .control(Input.create().value(\"A\").invalid(true))\n"
+                        + "    .message(\"Name must contain at least 2 characters.\");"));
+
         HTMLElement alerts = preview();
         alerts.appendChild(Alert.create()
                 .add(Alert.title("Heads up"))
@@ -275,6 +368,12 @@ public final class DemoApp implements EntryPoint {
 
     private HTMLElement preview() {
         return element("div", "demo-preview");
+    }
+
+    private HTMLElement preview(String extraClass) {
+        HTMLElement preview = preview();
+        preview.className = preview.className + " " + extraClass;
+        return preview;
     }
 
     private HTMLElement code(String code) {

@@ -112,8 +112,22 @@ pre {
   max-width: 26rem;
 }
 
+.demo-preview select {
+  max-width: 22rem;
+}
+
+.demo-preview input[type="range"] {
+  max-width: 22rem;
+}
+
 .demo-preview [role="radiogroup"] {
   min-width: 14rem;
+}
+
+.demo-form-preview {
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
 }
 
 .demo-preview [role="alert"] {
