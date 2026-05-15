@@ -8,20 +8,27 @@ import elemental2.dom.HTMLElement;
 import org.gwtfusion.ui.UiComponent;
 import org.gwtfusion.ui.component.alert.Alert;
 import org.gwtfusion.ui.component.alert.AlertVariant;
+import org.gwtfusion.ui.component.accordion.Accordion;
+import org.gwtfusion.ui.component.aspectratio.AspectRatio;
 import org.gwtfusion.ui.component.badge.Badge;
 import org.gwtfusion.ui.component.badge.BadgeVariant;
+import org.gwtfusion.ui.component.breadcrumb.Breadcrumb;
 import org.gwtfusion.ui.component.button.Button;
+import org.gwtfusion.ui.component.buttongroup.ButtonGroup;
 import org.gwtfusion.ui.component.button.ButtonSize;
 import org.gwtfusion.ui.component.button.ButtonVariant;
 import org.gwtfusion.ui.component.card.Card;
 import org.gwtfusion.ui.component.checkbox.Checkbox;
 import org.gwtfusion.ui.component.code.CodeBlock;
+import org.gwtfusion.ui.component.collapsible.Collapsible;
 import org.gwtfusion.ui.component.form.FormField;
 import org.gwtfusion.ui.component.input.Input;
 import org.gwtfusion.ui.component.inputgroup.InputGroup;
 import org.gwtfusion.ui.component.label.Label;
+import org.gwtfusion.ui.component.pagination.Pagination;
 import org.gwtfusion.ui.component.radio.RadioGroup;
 import org.gwtfusion.ui.component.radio.RadioGroupOrientation;
+import org.gwtfusion.ui.component.scrollarea.ScrollArea;
 import org.gwtfusion.ui.component.select.NativeSelect;
 import org.gwtfusion.ui.component.separator.Separator;
 import org.gwtfusion.ui.component.separator.SeparatorOrientation;
@@ -29,6 +36,11 @@ import org.gwtfusion.ui.component.slider.Slider;
 import org.gwtfusion.ui.component.switcher.Switch;
 import org.gwtfusion.ui.component.tabs.Tabs;
 import org.gwtfusion.ui.component.textarea.Textarea;
+import org.gwtfusion.ui.component.toggle.Toggle;
+import org.gwtfusion.ui.component.toggle.ToggleVariant;
+import org.gwtfusion.ui.component.togglegroup.ToggleGroup;
+import org.gwtfusion.ui.component.togglegroup.ToggleGroupType;
+import org.gwtfusion.ui.component.typography.Typography;
 import org.gwtfusion.ui.theme.ThemeManager;
 import org.gwtfusion.ui.theme.ThemeMode;
 
@@ -158,6 +170,38 @@ public final class DemoApp implements EntryPoint {
                         + "Badge.create(\"Secondary\").variant(BadgeVariant.SECONDARY);\n"
                         + "Badge.create(\"Destructive\").variant(BadgeVariant.DESTRUCTIVE);\n"
                         + "Badge.create(\"Outline\").variant(BadgeVariant.OUTLINE);"));
+
+        HTMLElement buttonGroups = preview();
+        buttonGroups.appendChild(ButtonGroup.create()
+                .add(Button.create("Left").variant(ButtonVariant.OUTLINE))
+                .add(Button.create("Center").variant(ButtonVariant.OUTLINE))
+                .add(Button.create("Right").variant(ButtonVariant.OUTLINE))
+                .element());
+        grid.appendChild(example("ButtonGroup", buttonGroups,
+                "ButtonGroup.create()\n"
+                        + "    .add(Button.create(\"Left\").variant(ButtonVariant.OUTLINE))\n"
+                        + "    .add(Button.create(\"Center\").variant(ButtonVariant.OUTLINE))\n"
+                        + "    .add(Button.create(\"Right\").variant(ButtonVariant.OUTLINE));"));
+
+        HTMLElement toggles = preview();
+        toggles.appendChild(Toggle.create("Bold").pressed(true).element());
+        toggles.appendChild(Toggle.create("Italic").variant(ToggleVariant.OUTLINE).element());
+        toggles.appendChild(ToggleGroup.create()
+                .type(ToggleGroupType.SINGLE)
+                .addItem("left", "Left")
+                .addItem("center", "Center")
+                .addItem("right", "Right")
+                .value("center")
+                .element());
+        grid.appendChild(example("Toggle", toggles,
+                "Toggle.create(\"Bold\").pressed(true);\n"
+                        + "Toggle.create(\"Italic\").variant(ToggleVariant.OUTLINE);\n\n"
+                        + "ToggleGroup.create()\n"
+                        + "    .type(ToggleGroupType.SINGLE)\n"
+                        + "    .addItem(\"left\", \"Left\")\n"
+                        + "    .addItem(\"center\", \"Center\")\n"
+                        + "    .addItem(\"right\", \"Right\")\n"
+                        + "    .value(\"center\");"));
     }
 
     private void renderLayout(HTMLElement grid) {
@@ -178,6 +222,71 @@ public final class DemoApp implements EntryPoint {
                 .add(Card.content().add(Button.create("Action")));
         grid.appendChild(example("Card", card,
                 "Card.create()\n    .add(Card.header()\n        .add(Card.title(\"Card Title\"))\n        .add(Card.description(\"A structured surface for related content.\")))\n    .add(Card.content().add(Button.create(\"Action\")));"));
+
+        HTMLElement aspectRatios = preview("demo-aspect-preview");
+        aspectRatios.appendChild(AspectRatio.create()
+                .ratio(16, 9)
+                .add(raw(textElement("div", "demo-aspect-box", "16:9")))
+                .element());
+        grid.appendChild(example("AspectRatio", aspectRatios,
+                "AspectRatio.create()\n"
+                        + "    .ratio(16, 9)\n"
+                        + "    .add(content);"));
+
+        HTMLElement accordions = preview("demo-stack-preview");
+        accordions.appendChild(Accordion.create()
+                .addItem("api", "Java-first API", raw(textElement("p", "demo-muted", "Fluent methods keep component usage natural in GWT applications.")))
+                .addItem("styles", "Tailwind styling", raw(textElement("p", "demo-muted", "Class names stay static and discoverable by the Tailwind build.")))
+                .value("api")
+                .element());
+        accordions.appendChild(Collapsible.create("Show implementation note")
+                .content(raw(textElement("p", "demo-muted", "Collapsible is reusable on its own and also informs Accordion behavior.")))
+                .element());
+        grid.appendChild(example("Accordion", accordions,
+                "Accordion.create()\n"
+                        + "    .addItem(\"api\", \"Java-first API\", apiContent)\n"
+                        + "    .addItem(\"styles\", \"Tailwind styling\", styleContent)\n"
+                        + "    .value(\"api\");\n\n"
+                        + "Collapsible.create(\"Show implementation note\")\n"
+                        + "    .content(content);"));
+
+        HTMLElement navExamples = preview("demo-stack-preview");
+        navExamples.appendChild(Breadcrumb.create()
+                .link("Docs", "#")
+                .link("Components", "#")
+                .current("Navigation")
+                .element());
+        navExamples.appendChild(Pagination.create()
+                .previous("#")
+                .page(1, "#", false)
+                .page(2, "#", true)
+                .page(3, "#", false)
+                .next("#")
+                .element());
+        grid.appendChild(example("Navigation", navExamples,
+                "Breadcrumb.create()\n"
+                        + "    .link(\"Docs\", \"#\")\n"
+                        + "    .link(\"Components\", \"#\")\n"
+                        + "    .current(\"Navigation\");\n\n"
+                        + "Pagination.create()\n"
+                        + "    .previous(\"#\")\n"
+                        + "    .page(1, \"#\", false)\n"
+                        + "    .page(2, \"#\", true)\n"
+                        + "    .next(\"#\");"));
+
+        HTMLElement utilityLayout = preview("demo-stack-preview");
+        utilityLayout.appendChild(ScrollArea.create()
+                .height(120)
+                .add(raw(textElement("p", "demo-muted", "Scroll areas keep overflowing content contained without forcing custom scrollbars. This paragraph is intentionally long so the example demonstrates constrained content and native scrolling behavior in a compact surface.")))
+                .element());
+        utilityLayout.appendChild(Typography.h2("Typography scale").element());
+        utilityLayout.appendChild(Typography.muted("Reusable text styles keep documentation and application content visually consistent.").element());
+        grid.appendChild(example("ScrollArea & Typography", utilityLayout,
+                "ScrollArea.create()\n"
+                        + "    .height(120)\n"
+                        + "    .add(content);\n\n"
+                        + "Typography.h2(\"Typography scale\");\n"
+                        + "Typography.muted(\"Reusable text styles...\");"));
 
         HTMLElement separators = preview();
         separators.appendChild(Separator.create().element());
