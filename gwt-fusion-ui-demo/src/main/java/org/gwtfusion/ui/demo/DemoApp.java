@@ -99,8 +99,34 @@ public final class DemoApp implements EntryPoint {
         clearContent();
         content.appendChild(textElement("h1", "", "Components"));
         content.appendChild(textElement("p", "demo-muted", "Each example shows the rendered component on the left and the matching Java code on the right. Variants and sizes are intentionally shown side by side."));
-        HTMLElement grid = element("div", "demo-grid");
+        content.appendChild(categoryNav());
 
+        HTMLElement actions = componentSection("actions", "Actions", "Interactive elements for triggering actions and highlighting state.");
+        HTMLElement actionsGrid = examplesGrid();
+        renderActions(actionsGrid);
+        actions.appendChild(actionsGrid);
+        content.appendChild(actions);
+
+        HTMLElement layout = componentSection("layout", "Layout", "Structural components for grouping content and organizing interface regions.");
+        HTMLElement layoutGrid = examplesGrid();
+        renderLayout(layoutGrid);
+        layout.appendChild(layoutGrid);
+        content.appendChild(layout);
+
+        HTMLElement forms = componentSection("forms", "Forms", "Controls and composition primitives for accessible user input.");
+        HTMLElement formsGrid = examplesGrid();
+        renderForms(formsGrid);
+        forms.appendChild(formsGrid);
+        content.appendChild(forms);
+
+        HTMLElement feedback = componentSection("feedback", "Feedback", "Components for communicating status, warnings, and contextual messages.");
+        HTMLElement feedbackGrid = examplesGrid();
+        renderFeedback(feedbackGrid);
+        feedback.appendChild(feedbackGrid);
+        content.appendChild(feedback);
+    }
+
+    private void renderActions(HTMLElement grid) {
         HTMLElement buttons = preview();
         buttons.appendChild(Button.create("Default").element());
         buttons.appendChild(Button.create("Destructive").variant(ButtonVariant.DESTRUCTIVE).element());
@@ -132,7 +158,9 @@ public final class DemoApp implements EntryPoint {
                         + "Badge.create(\"Secondary\").variant(BadgeVariant.SECONDARY);\n"
                         + "Badge.create(\"Destructive\").variant(BadgeVariant.DESTRUCTIVE);\n"
                         + "Badge.create(\"Outline\").variant(BadgeVariant.OUTLINE);"));
+    }
 
+    private void renderLayout(HTMLElement grid) {
         HTMLElement tabPreview = preview("demo-tabs-preview");
         tabPreview.appendChild(Tabs.create()
                 .addTab("preview", "Preview", raw(textElement("p", "demo-muted", "Tabs keep related panels in the same flow and support arrow-key navigation.")))
@@ -151,6 +179,17 @@ public final class DemoApp implements EntryPoint {
         grid.appendChild(example("Card", card,
                 "Card.create()\n    .add(Card.header()\n        .add(Card.title(\"Card Title\"))\n        .add(Card.description(\"A structured surface for related content.\")))\n    .add(Card.content().add(Button.create(\"Action\")));"));
 
+        HTMLElement separators = preview();
+        separators.appendChild(Separator.create().element());
+        separators.appendChild(Separator.create().orientation(SeparatorOrientation.VERTICAL).classes("mx-4 min-h-12").element());
+        grid.appendChild(example("Separator", separators,
+                "Separator.create();\n"
+                        + "Separator.create()\n"
+                        + "    .orientation(SeparatorOrientation.VERTICAL)\n"
+                        + "    .classes(\"mx-4 min-h-12\");"));
+    }
+
+    private void renderForms(HTMLElement grid) {
         HTMLElement form = preview();
         form.appendChild(Label.create("Email").forId("email-demo").element());
         form.appendChild(Input.create().type("email").placeholder("name@example.com").attr("id", "email-demo").element());
@@ -316,7 +355,9 @@ public final class DemoApp implements EntryPoint {
                         + "    .label(\"Validation state\")\n"
                         + "    .control(Input.create().value(\"A\").invalid(true))\n"
                         + "    .message(\"Name must contain at least 2 characters.\");"));
+    }
 
+    private void renderFeedback(HTMLElement grid) {
         HTMLElement alerts = preview();
         alerts.appendChild(Alert.create()
                 .add(Alert.title("Heads up"))
@@ -335,16 +376,37 @@ public final class DemoApp implements EntryPoint {
                         + "    .variant(AlertVariant.DESTRUCTIVE)\n"
                         + "    .add(Alert.title(\"Error\"))\n"
                         + "    .add(Alert.description(\"The destructive style uses its own variant.\"));"));
+    }
 
-        HTMLElement separators = preview();
-        separators.appendChild(Separator.create().element());
-        separators.appendChild(Separator.create().orientation(SeparatorOrientation.VERTICAL).classes("mx-4 min-h-12").element());
-        grid.appendChild(example("Separator", separators,
-                "Separator.create();\n"
-                        + "Separator.create()\n"
-                        + "    .orientation(SeparatorOrientation.VERTICAL)\n"
-                        + "    .classes(\"mx-4 min-h-12\");"));
-        content.appendChild(grid);
+    private HTMLElement categoryNav() {
+        HTMLElement nav = element("nav", "demo-category-nav");
+        nav.setAttribute("aria-label", "Component categories");
+        nav.appendChild(categoryLink("Actions", "#actions"));
+        nav.appendChild(categoryLink("Layout", "#layout"));
+        nav.appendChild(categoryLink("Forms", "#forms"));
+        nav.appendChild(categoryLink("Feedback", "#feedback"));
+        return nav;
+    }
+
+    private HTMLElement categoryLink(String label, String href) {
+        HTMLElement link = element("a", "demo-category-link");
+        link.setAttribute("href", href);
+        link.textContent = label;
+        return link;
+    }
+
+    private HTMLElement componentSection(String id, String title, String description) {
+        HTMLElement section = element("section", "demo-section");
+        section.setAttribute("id", id);
+        HTMLElement header = element("div", "demo-section-header");
+        header.appendChild(textElement("h2", "demo-section-title", title));
+        header.appendChild(textElement("p", "demo-muted", description));
+        section.appendChild(header);
+        return section;
+    }
+
+    private HTMLElement examplesGrid() {
+        return element("div", "demo-grid");
     }
 
     private void renderTheme() {

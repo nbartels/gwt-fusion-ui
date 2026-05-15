@@ -73,6 +73,48 @@ pre {
   grid-template-columns: 1fr;
 }
 
+.demo-category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.demo-category-link {
+  border: 1px solid hsl(var(--border));
+  border-radius: 999px;
+  color: hsl(var(--foreground));
+  font-size: .875rem;
+  font-weight: 500;
+  padding: .4rem .8rem;
+  text-decoration: none;
+  transition: background-color .15s ease, color .15s ease;
+}
+
+.demo-category-link:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+.demo-section {
+  display: grid;
+  gap: 1rem;
+  scroll-margin-top: 1rem;
+}
+
+.demo-section-header {
+  border-bottom: 1px solid hsl(var(--border));
+  display: grid;
+  gap: .35rem;
+  padding-bottom: .75rem;
+}
+
+.demo-section-title {
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin: 0;
+}
+
 .demo-example {
   border: 1px solid hsl(var(--border));
   border-radius: .75rem;
