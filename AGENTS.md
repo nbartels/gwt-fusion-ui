@@ -35,7 +35,7 @@ Dieses Repository enthaelt `gwt-fusion-ui`, eine UI-Komponentenbibliothek fuer G
 - Standardverifikation ohne Node-Download: `mvn -Dskip.tailwind=true verify`.
 - Voller CSS-Build: `mvn -pl gwt-fusion-ui generate-resources`.
 - Demo-GWT-Compile ist ueber das Profil `demo` im Demo-`package` vorbereitet: `mvn -Pdemo -pl gwt-fusion-ui-demo -am -Dskip.tailwind=true package`.
-- GitHub Actions werden vorerst ignoriert und muessen nicht funktionieren.
+- GitHub Pages Deployment ist ueber `.github/workflows/deploy-demo.yml` vorbereitet und baut die Demo-Webseite.
 
 ## Tests
 
@@ -53,7 +53,8 @@ Dieses Repository enthaelt `gwt-fusion-ui`, eine UI-Komponentenbibliothek fuer G
 
 ## Aktueller Stand
 
-- Erste Komponenten: `Button`, `Badge`, `Card`, `Alert`, `Input`, `Label`, `Separator`.
+- Erste Komponenten: `Button`, `Badge`, `Card`, `Alert`, `Input`, `Label`, `Separator`, `Checkbox`, `Switch`, `Textarea`, `RadioGroup`.
 - Basisklassen: `UiComponent`, `BaseComponent`, `CssClasses`, `ThemeManager`.
-- Demo: Startseite, Komponentenansicht, Themeansicht.
+- Demo: Startseite, Komponentenansicht mit Preview/Java-Code, Form-Foundation-Beispiele, Themeansicht.
 - Tailwind 3 ist eingerichtet und wird ueber `frontend-maven-plugin` ausgefuehrt.
+- Aktueller Arbeitsstand: Milestone 1 Form Foundation ist auf Branch `milestone-1-form-foundation` implementiert.

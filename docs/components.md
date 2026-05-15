@@ -9,11 +9,17 @@
 - Input
 - Label
 - Separator
+- Checkbox
+- Switch
+- Textarea
+- RadioGroup
 
 ## Naechste Kandidaten
 
-- Checkbox
-- Switch
+- FormField
+- NativeSelect
+- InputGroup
+- Slider
 - Tabs
 - Dialog
 - Dropdown

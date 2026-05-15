@@ -14,10 +14,15 @@ import org.gwtfusion.ui.component.button.Button;
 import org.gwtfusion.ui.component.button.ButtonSize;
 import org.gwtfusion.ui.component.button.ButtonVariant;
 import org.gwtfusion.ui.component.card.Card;
+import org.gwtfusion.ui.component.checkbox.Checkbox;
 import org.gwtfusion.ui.component.input.Input;
 import org.gwtfusion.ui.component.label.Label;
+import org.gwtfusion.ui.component.radio.RadioGroup;
+import org.gwtfusion.ui.component.radio.RadioGroupOrientation;
 import org.gwtfusion.ui.component.separator.Separator;
 import org.gwtfusion.ui.component.separator.SeparatorOrientation;
+import org.gwtfusion.ui.component.switcher.Switch;
+import org.gwtfusion.ui.component.textarea.Textarea;
 import org.gwtfusion.ui.theme.ThemeManager;
 import org.gwtfusion.ui.theme.ThemeMode;
 
@@ -146,6 +151,69 @@ public final class DemoApp implements EntryPoint {
                         + "Input.create().type(\"text\").value(\"With value\");\n"
                         + "Input.create().type(\"password\").placeholder(\"Password\");"));
 
+        HTMLElement checkboxes = preview();
+        checkboxes.appendChild(labelled("Accept terms", Checkbox.create().checked(true)));
+        checkboxes.appendChild(labelled("Disabled", Checkbox.create().disabled(true)));
+        checkboxes.appendChild(labelled("Invalid", Checkbox.create().invalid(true)));
+        grid.appendChild(example("Checkbox", checkboxes,
+                "Checkbox.create().checked(true);\n"
+                        + "Checkbox.create().disabled(true);\n"
+                        + "Checkbox.create().invalid(true);"));
+
+        HTMLElement switches = preview();
+        switches.appendChild(labelled("Notifications", Switch.create().checked(true)));
+        switches.appendChild(labelled("Marketing", Switch.create()));
+        switches.appendChild(labelled("Disabled", Switch.create().disabled(true)));
+        grid.appendChild(example("Switch", switches,
+                "Switch.create().checked(true);\n"
+                        + "Switch.create();\n"
+                        + "Switch.create().disabled(true);"));
+
+        HTMLElement textareas = preview();
+        textareas.appendChild(Textarea.create().placeholder("Write a message...").rows(4).element());
+        textareas.appendChild(Textarea.create().value("Existing content").rows(3).element());
+        textareas.appendChild(Textarea.create().placeholder("Disabled").disabled(true).element());
+        grid.appendChild(example("Textarea", textareas,
+                "Textarea.create()\n"
+                        + "    .placeholder(\"Write a message...\")\n"
+                        + "    .rows(4);\n"
+                        + "Textarea.create().value(\"Existing content\").rows(3);\n"
+                        + "Textarea.create().placeholder(\"Disabled\").disabled(true);"));
+
+        HTMLElement radios = preview();
+        radios.appendChild(RadioGroup.create()
+                .name("density")
+                .addOption("compact", "Compact")
+                .addOption("comfortable", "Comfortable")
+                .addOption("spacious", "Spacious")
+                .value("comfortable")
+                .element());
+        radios.appendChild(RadioGroup.create()
+                .name("billing")
+                .orientation(RadioGroupOrientation.HORIZONTAL)
+                .addOption("monthly", "Monthly")
+                .addOption("yearly", "Yearly")
+                .value("yearly")
+                .element());
+        radios.appendChild(RadioGroup.create()
+                .name("disabled-plan")
+                .addOption("team", "Team")
+                .addOption("enterprise", "Enterprise")
+                .disabled(true)
+                .element());
+        grid.appendChild(example("RadioGroup", radios,
+                "RadioGroup.create()\n"
+                        + "    .name(\"density\")\n"
+                        + "    .addOption(\"compact\", \"Compact\")\n"
+                        + "    .addOption(\"comfortable\", \"Comfortable\")\n"
+                        + "    .addOption(\"spacious\", \"Spacious\")\n"
+                        + "    .value(\"comfortable\");\n\n"
+                        + "RadioGroup.create()\n"
+                        + "    .orientation(RadioGroupOrientation.HORIZONTAL)\n"
+                        + "    .addOption(\"monthly\", \"Monthly\")\n"
+                        + "    .addOption(\"yearly\", \"Yearly\")\n"
+                        + "    .value(\"yearly\");"));
+
         HTMLElement alerts = preview();
         alerts.appendChild(Alert.create()
                 .add(Alert.title("Heads up"))
@@ -213,6 +281,13 @@ public final class DemoApp implements EntryPoint {
         HTMLElement pre = element("pre", "demo-code");
         pre.textContent = code;
         return pre;
+    }
+
+    private HTMLElement labelled(String label, UiComponent component) {
+        HTMLElement wrapper = element("label", "demo-control-label");
+        wrapper.appendChild(component.element());
+        wrapper.appendChild(textElement("span", "", label));
+        return wrapper;
     }
 
     private HTMLElement textElement(String tagName, String classes, String text) {

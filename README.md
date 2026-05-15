@@ -41,6 +41,20 @@ Dark Mode:
 ThemeManager.setMode(ThemeMode.DARK);
 ```
 
+## Aktuelle Komponenten
+
+- `Button`
+- `Badge`
+- `Card`
+- `Alert`
+- `Input`
+- `Label`
+- `Separator`
+- `Checkbox`
+- `Switch`
+- `Textarea`
+- `RadioGroup`
+
 ## Designprinzipien
 
 - DOM-basiert mit `elemental2.dom`.

@@ -32,7 +32,7 @@ Focus on components used in almost every application.
 
 ### Implementation Notes
 
-- Start with `Checkbox`, `Switch`, `Textarea`, and `RadioGroup`.
+- `Checkbox`, `Switch`, `Textarea`, and `RadioGroup` are implemented as the initial form foundation.
 - Treat `NativeSelect` as a simpler native-control alternative to the richer `Select` component.
 - `InputGroup` should compose existing `Input`, `Button`, icons, and addons instead of duplicating input behavior.
 - `InputOtp` needs careful keyboard handling and should come after basic form controls are stable.
@@ -399,16 +399,16 @@ The icon system should help position `gwt-fusion-ui` as:
 
 ## Recommended Next Order
 
-1. `Checkbox`
-2. `Switch`
-3. `Textarea`
-4. `RadioGroup`
-5. `Tabs`
-6. `Accordion`
-7. `Tooltip`
-8. `Dialog`
-9. `DropdownMenu`
-10. `Toast`
+1. `FormField`
+2. `FormMessage`
+3. `NativeSelect`
+4. `InputGroup`
+5. `Slider`
+6. `Tabs`
+7. `Accordion`
+8. `Tooltip`
+9. `Dialog`
+10. `DropdownMenu`
 
 ## shadcn/ui Parity Gaps
 
