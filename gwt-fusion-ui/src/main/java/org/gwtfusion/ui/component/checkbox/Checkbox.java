@@ -3,8 +3,9 @@ package org.gwtfusion.ui.component.checkbox;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLInputElement;
 import org.gwtfusion.ui.BaseComponent;
+import org.gwtfusion.ui.component.form.FormControl;
 
-public final class Checkbox extends BaseComponent<Checkbox> {
+public final class Checkbox extends BaseComponent<Checkbox> implements FormControl<Checkbox> {
     public static final String BASE_CLASSES = "h-4 w-4 rounded border border-input accent-primary shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
     public static final String INVALID_CLASSES = "border-destructive";
 

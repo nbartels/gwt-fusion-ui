@@ -36,6 +36,8 @@ Focus on components used in almost every application.
 - Treat `NativeSelect` as a simpler native-control alternative to the richer `Select` component.
 - `InputGroup` should compose existing `Input`, `Button`, icons, and addons instead of duplicating input behavior.
 - `InputOtp` needs careful keyboard handling and should come after basic form controls are stable.
+- `FormControl`, `FormField`, `FormLabel`, `FormDescription`, `FormMessage`, `NativeSelect`, `InputGroup`, and `Slider` are implemented as the form composition layer.
+- The richer styled `Select` is intentionally deferred until overlay, popover, keyboard, and focus-management utilities exist.
 - Keep native form semantics where possible, especially for `input`, `textarea`, and `label`.
 - Expose state with fluent methods such as `checked(boolean)`, `disabled(boolean)`, `value(String)`, `name(String)`, and `required(boolean)`.
 - Use enums for variants and sizes if the component has more than one visual style.
@@ -399,16 +401,16 @@ The icon system should help position `gwt-fusion-ui` as:
 
 ## Recommended Next Order
 
-1. `FormField`
-2. `FormMessage`
-3. `NativeSelect`
-4. `InputGroup`
-5. `Slider`
-6. `Tabs`
-7. `Accordion`
-8. `Tooltip`
-9. `Dialog`
-10. `DropdownMenu`
+1. `InputOtp`
+2. `Tabs`
+3. `Accordion`
+4. `Tooltip`
+5. `Dialog`
+6. `DropdownMenu`
+7. `Select`
+8. `Toast`
+9. `Table`
+10. `Icon` foundation
 
 ## shadcn/ui Parity Gaps
 
