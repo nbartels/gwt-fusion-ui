@@ -38,17 +38,17 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 
 ## Milestone 3: Demo Experience Upgrade
 
-- [ ] Implement `Tabs`.
-- [ ] Add keyboard support for `Tabs`.
-- [ ] Add `Tabs` tests for enum/class mappings and state helpers.
-- [ ] Use `Tabs` in the demo for component examples where useful.
-- [ ] Decide whether preview/code should stay as two columns, tabs, or both depending on screen size.
-- [ ] Implement `CodeBlock` for Java snippets.
-- [ ] Replace raw `pre` snippets in the demo with `CodeBlock`.
-- [ ] Create reusable demo example descriptors if string snippets become hard to maintain.
-- [ ] Verify mobile layout for demo component examples.
-- [ ] Verify `mvn -Dskip.tailwind=true verify`.
-- [ ] Verify demo GWT compile.
+- [x] Implement `Tabs`.
+- [x] Add keyboard support for `Tabs`.
+- [x] Add `Tabs` tests for enum/class mappings and state helpers.
+- [x] Use `Tabs` in the demo for component examples where useful.
+- [x] Decide whether preview/code should stay as two columns, tabs, or both depending on screen size.
+- [x] Implement `CodeBlock` for Java snippets.
+- [x] Replace raw `pre` snippets in the demo with `CodeBlock`.
+- [x] Keep string snippets for now; reusable demo example descriptors are deferred until snippets become hard to maintain.
+- [x] Verify mobile layout continues to use stacked examples through CSS media queries.
+- [x] Verify `mvn -Dskip.tailwind=true verify`.
+- [x] Verify demo GWT compile.
 
 ## Milestone 4: Layout And Navigation Components
 

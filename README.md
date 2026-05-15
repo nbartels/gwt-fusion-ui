@@ -61,6 +61,8 @@ ThemeManager.setMode(ThemeMode.DARK);
 - `NativeSelect`
 - `InputGroup`
 - `Slider`
+- `Tabs`
+- `CodeBlock`
 
 ## Designprinzipien
 

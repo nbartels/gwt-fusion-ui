@@ -20,12 +20,14 @@
 - NativeSelect
 - InputGroup
 - Slider
+- Tabs
+- CodeBlock
 
 ## Naechste Kandidaten
 
 - InputOtp
 - Select
-- Tabs
+- Accordion
 - Dialog
 - Dropdown
 - Tooltip

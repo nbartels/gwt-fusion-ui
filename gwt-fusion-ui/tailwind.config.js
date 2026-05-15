@@ -13,10 +13,11 @@ const componentClasses = [
   'shadow', 'shadow-sm', 'shadow-none', 'w-full', 'min-w-0', 'min-h-9', 'min-h-12', 'min-h-16',
   'border-transparent', 'bg-transparent', 'bg-muted', 'bg-border', 'bg-input', 'text-foreground', 'text-muted-foreground', 'text-primary',
   'border-destructive/50', 'text-destructive', 'dark:border-destructive',
-  'border-l-4', 'p-4', 'p-6', 'pt-0', 'space-y-1.5', 'mb-1', 'mx-4',
+  'border-l-4', 'p-1', 'p-4', 'p-6', 'pt-0', 'space-y-1.5', 'mb-1', 'mt-2', 'mx-4',
   'grid', 'flex', 'flex-1', 'flex-col', 'flex-row', 'flex-wrap', 'gap-2', 'gap-4', 'leading-none', 'tracking-tight',
   'relative', 'shrink-0', 'h-px', 'w-px', 'h-full',
-  'translate-x-0', 'translate-x-4', 'accent-primary', 'appearance-none', 'overflow-hidden',
+  'translate-x-0', 'translate-x-4', 'accent-primary', 'appearance-none', 'overflow-hidden', 'overflow-auto',
+  'hover:bg-background', 'hover:text-foreground', 'whitespace-pre', 'font-mono',
   'file:border-0', 'file:bg-transparent', 'file:text-sm', 'file:font-medium',
   'placeholder:text-muted-foreground', 'selection:bg-primary', 'selection:text-primary-foreground'
 ];
