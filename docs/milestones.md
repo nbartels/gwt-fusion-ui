@@ -4,20 +4,20 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 
 ## Milestone 1: Form Foundation
 
-- [ ] Implement `Checkbox` component.
-- [ ] Add `Checkbox` checked, unchecked, disabled, and invalid examples to the demo.
-- [ ] Add `Checkbox` enum/class mapping tests.
-- [ ] Implement `Switch` component.
-- [ ] Add `Switch` checked, unchecked, and disabled examples to the demo.
-- [ ] Add `Switch` enum/class mapping tests.
-- [ ] Implement `Textarea` component.
-- [ ] Add `Textarea` default, disabled, and placeholder examples to the demo.
-- [ ] Add `Textarea` API tests where possible.
-- [ ] Implement `RadioGroup` component.
-- [ ] Add `RadioGroup` horizontal, vertical, disabled, and selected-state examples to the demo.
-- [ ] Add `RadioGroup` enum/class mapping tests.
-- [ ] Verify `mvn -Dskip.tailwind=true verify`.
-- [ ] Verify `mvn -Pdemo -pl gwt-fusion-ui-demo -am -Dskip.tailwind=true package`.
+- [x] Implement `Checkbox` component.
+- [x] Add `Checkbox` checked, unchecked, disabled, and invalid examples to the demo.
+- [x] Add `Checkbox` enum/class mapping tests.
+- [x] Implement `Switch` component.
+- [x] Add `Switch` checked, unchecked, and disabled examples to the demo.
+- [x] Add `Switch` enum/class mapping tests.
+- [x] Implement `Textarea` component.
+- [x] Add `Textarea` default, disabled, and placeholder examples to the demo.
+- [x] Add `Textarea` API tests where possible.
+- [x] Implement `RadioGroup` component.
+- [x] Add `RadioGroup` horizontal, vertical, disabled, and selected-state examples to the demo.
+- [x] Add `RadioGroup` enum/class mapping tests.
+- [x] Verify `mvn -Dskip.tailwind=true verify`.
+- [x] Verify `mvn -Pdemo -pl gwt-fusion-ui-demo -am -Dskip.tailwind=true package`.
 
 ## Milestone 2: Form Composition
 

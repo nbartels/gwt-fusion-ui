@@ -108,8 +108,22 @@ pre {
   max-width: 22rem;
 }
 
+.demo-preview textarea {
+  max-width: 26rem;
+}
+
+.demo-preview [role="radiogroup"] {
+  min-width: 14rem;
+}
+
 .demo-preview [role="alert"] {
   width: 100%;
+}
+
+.demo-control-label {
+  align-items: center;
+  display: inline-flex;
+  gap: .5rem;
 }
 
 .demo-code {
