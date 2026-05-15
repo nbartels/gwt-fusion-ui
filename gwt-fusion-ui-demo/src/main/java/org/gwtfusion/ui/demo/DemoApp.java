@@ -34,7 +34,6 @@ import org.gwtfusion.ui.theme.ThemeMode;
 
 public final class DemoApp implements EntryPoint {
     private HTMLElement content;
-    private ThemeMode nextMode = ThemeMode.DARK;
 
     @Override
     public void onModuleLoad() {
@@ -65,8 +64,7 @@ public final class DemoApp implements EntryPoint {
     }
 
     private void toggleTheme() {
-        ThemeManager.setMode(nextMode);
-        nextMode = nextMode == ThemeMode.DARK ? ThemeMode.LIGHT : ThemeMode.DARK;
+        ThemeManager.setMode(ThemeManager.mode() == ThemeMode.DARK ? ThemeMode.LIGHT : ThemeMode.DARK);
     }
 
     private void renderHome() {
@@ -353,9 +351,22 @@ public final class DemoApp implements EntryPoint {
         clearContent();
         content.appendChild(textElement("h1", "", "Theme"));
         content.appendChild(textElement("p", "demo-muted", "Themes are controlled through CSS variables and the root .dark class. ThemeManager.setMode(...) is the Java API for switching modes."));
-        content.appendChild(example("ThemeManager",
-                Button.create("Enable dark mode").variant(ButtonVariant.OUTLINE).onClick(event -> ThemeManager.setMode(ThemeMode.DARK)),
-                "ThemeManager.setMode(ThemeMode.DARK);\nThemeManager.setMode(ThemeMode.LIGHT);\nThemeManager.setMode(ThemeMode.SYSTEM);"));
+        boolean dark = ThemeManager.mode() == ThemeMode.DARK;
+        HTMLElement themeControls = preview();
+        themeControls.appendChild(textElement("p", "demo-muted", "Current mode: " + ThemeManager.mode().name()));
+        themeControls.appendChild(Button.create(dark ? "Switch to light mode" : "Switch to dark mode")
+                .variant(ButtonVariant.OUTLINE)
+                .onClick(event -> {
+                    toggleTheme();
+                    renderTheme();
+                })
+                .element());
+        content.appendChild(example("ThemeManager", themeControls,
+                "ThemeManager.setMode(\n"
+                        + "    ThemeManager.mode() == ThemeMode.DARK\n"
+                        + "        ? ThemeMode.LIGHT\n"
+                        + "        : ThemeMode.DARK\n"
+                        + ");"));
     }
 
     private HTMLElement example(String title, UiComponent component, String code) {
