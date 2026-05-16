@@ -253,7 +253,7 @@ Add a modern, modular, SVG-based icon architecture for `gwt-fusion-ui`. The syst
 The API should feel natural for Java/GWT developers.
 
 ```java
-Icon search = Icons.search();
+Icon search = LucideIcons.search();
 
 Button.create("Search")
     .icon(search);
@@ -279,9 +279,17 @@ Core types:
 Example:
 
 ```java
-IconRegistry.register(new LucideIconProvider());
-IconRegistry.register(new TablerIconProvider());
+IconRegistry registry = IconRegistry.create()
+    .register("lucide", LucideIcons.provider())
+    .register("tabler", TablerIcons.provider());
 ```
+
+### Foundation Status
+
+- `Icon`, `IconProvider`, `IconRegistry`, `IconTheme`, `IconVariant`, and `IconSize` are implemented in the core UI module.
+- `Icon` uses an `HTMLElement` root with an inline SVG child to preserve the existing `UiComponent.element()` contract.
+- A small `LucideIcons` proof of concept is available in core; larger icon packs remain planned as optional modules.
+- `Button.icon(Icon icon)` is implemented and treats composed button icons as decorative.
 
 ### Default Icon Set
 
@@ -346,7 +354,7 @@ Icons must support:
 Example:
 
 ```java
-Icons.search()
+LucideIcons.search()
     .size(18)
     .strokeWidth(2)
     .classes("text-muted-foreground");
@@ -363,10 +371,10 @@ Support both decorative and accessible icons.
 Example:
 
 ```java
-Icons.warning()
+LucideIcons.x()
     .ariaLabel("Warning");
 
-Icons.search()
+LucideIcons.search()
     .decorative();
 ```
 
@@ -388,9 +396,9 @@ Icons.search()
 
 ### Implementation Notes
 
-- Start with `Icon`, `IconProvider`, `IconRegistry`, and a small Lucide proof of concept.
-- Keep `Icon` as a `UiComponent` so it can be composed into buttons, inputs, menu items, and alerts.
-- Add `Button.icon(Icon icon)` only after the base `Icon` API is stable.
+- `Icon`, `IconProvider`, `IconRegistry`, and a small Lucide proof of concept are implemented.
+- `Icon` stays a `UiComponent` so it can be composed into buttons, inputs, menu items, and alerts.
+- `Button.icon(Icon icon)` is implemented after the base `Icon` API was introduced.
 - Store path data in Java constants or generated Java classes, not in runtime-loaded font files.
 - Consider source generation for large icon packs to avoid hand-maintaining hundreds of icons.
 - Keep generated code J2CL-friendly and free of reflection.
@@ -413,9 +421,9 @@ The icon system should help position `gwt-fusion-ui` as:
 5. `Select`
 6. `Toast`
 7. `Table`
-8. `Icon` foundation
-9. `NavigationMenu`
-10. `Sidebar`
+8. `NavigationMenu`
+9. `Sidebar`
+10. `Menubar`
 
 ## shadcn/ui Parity Gaps
 

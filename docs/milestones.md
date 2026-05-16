@@ -89,26 +89,26 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 
 ## Milestone 6: Icon System Foundation
 
-- [ ] Define `Icon` as a `UiComponent`.
-- [ ] Define `IconProvider`.
-- [ ] Define `IconRegistry`.
-- [ ] Define `IconTheme`.
-- [ ] Define `IconVariant`.
-- [ ] Define `IconSize`.
-- [ ] Implement SVG-first rendering with inline SVG.
-- [ ] Support `size(int)`.
-- [ ] Support `strokeWidth(double)`.
-- [ ] Support inherited `currentColor`.
-- [ ] Support `classes(String)`.
-- [ ] Support `ariaLabel(String)`.
-- [ ] Support `decorative()`.
-- [ ] Add a small Lucide proof of concept.
-- [ ] Add `Button.icon(Icon icon)` after the base icon API is stable.
-- [ ] Add icon examples to the demo.
-- [ ] Add accessibility examples for decorative and labelled icons.
-- [ ] Verify no icon font loading is introduced.
-- [ ] Verify `mvn -Dskip.tailwind=true verify`.
-- [ ] Verify demo GWT compile.
+- [x] Define `Icon` as a `UiComponent`.
+- [x] Define `IconProvider`.
+- [x] Define `IconRegistry`.
+- [x] Define `IconTheme`.
+- [x] Define `IconVariant`.
+- [x] Define `IconSize`.
+- [x] Implement SVG-first rendering with inline SVG.
+- [x] Support `size(int)`.
+- [x] Support `strokeWidth(double)`.
+- [x] Support inherited `currentColor`.
+- [x] Support `classes(String)`.
+- [x] Support `ariaLabel(String)`.
+- [x] Support `decorative()`.
+- [x] Add a small Lucide proof of concept.
+- [x] Add `Button.icon(Icon icon)` after the base icon API is stable.
+- [x] Add icon examples to the demo.
+- [x] Add accessibility examples for decorative and labelled icons.
+- [x] Verify no icon font loading is introduced.
+- [x] Verify `mvn -Dskip.tailwind=true verify`.
+- [x] Verify demo GWT compile.
 
 ## Milestone 7: Icon Modules
 

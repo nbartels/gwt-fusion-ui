@@ -85,6 +85,7 @@ Slider.create()
 - `Toggle`
 - `ToggleGroup`
 - `Typography`
+- `Icon`
 
 ## Designprinzipien
 
@@ -98,5 +99,6 @@ Slider.create()
 Weitere API-Details:
 
 - `docs/events.md`
+- `docs/icons.md`
 
 Weitere Entwicklungsregeln stehen in `AGENTS.md`.

@@ -32,6 +32,7 @@
 - Toggle
 - ToggleGroup
 - Typography
+- Icon
 
 ## Naechste Kandidaten
 
