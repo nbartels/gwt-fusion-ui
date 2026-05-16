@@ -5,6 +5,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
+import org.gwtfusion.icons.lucide.LucideIcons;
 import org.gwtfusion.ui.UiComponent;
 import org.gwtfusion.ui.component.alert.Alert;
 import org.gwtfusion.ui.component.alert.AlertVariant;
@@ -25,7 +27,6 @@ import org.gwtfusion.ui.component.form.FormField;
 import org.gwtfusion.ui.component.icon.IconRegistry;
 import org.gwtfusion.ui.component.icon.IconSize;
 import org.gwtfusion.ui.component.icon.IconVariant;
-import org.gwtfusion.ui.component.icon.LucideIcons;
 import org.gwtfusion.ui.component.input.Input;
 import org.gwtfusion.ui.component.inputgroup.InputGroup;
 import org.gwtfusion.ui.component.label.Label;
@@ -49,6 +50,8 @@ import org.gwtfusion.ui.theme.ThemeManager;
 import org.gwtfusion.ui.theme.ThemeMode;
 
 public final class DemoApp implements EntryPoint {
+    private static final int ICON_GALLERY_LIMIT = 120;
+
     private HTMLElement content;
 
     @Override
@@ -70,6 +73,7 @@ public final class DemoApp implements EntryPoint {
         HTMLElement nav = element("nav", "demo-nav");
         nav.appendChild(Button.create("Home").variant(ButtonVariant.GHOST).onClick(event -> renderHome()).element());
         nav.appendChild(Button.create("Components").variant(ButtonVariant.GHOST).onClick(event -> renderComponentsAsync()).element());
+        nav.appendChild(Button.create("Icons").variant(ButtonVariant.GHOST).onClick(event -> renderIconsAsync()).element());
         nav.appendChild(Button.create("Theme").variant(ButtonVariant.GHOST).onClick(event -> renderTheme()).element());
         layout.appendChild(nav);
 
@@ -107,6 +111,22 @@ public final class DemoApp implements EntryPoint {
             @Override
             public void onSuccess() {
                 renderComponents();
+            }
+        });
+    }
+
+    private void renderIconsAsync() {
+        clearContent();
+        content.appendChild(textElement("p", "demo-muted", "Loading the Lucide icon gallery through GWT.runAsync keeps the full icon catalog out of the initial demo path."));
+        GWT.runAsync(new RunAsyncCallback() {
+            @Override
+            public void onFailure(Throwable reason) {
+                content.appendChild(textElement("p", "demo-muted", "Icons could not be loaded: " + reason.getMessage()));
+            }
+
+            @Override
+            public void onSuccess() {
+                renderIconsPage();
             }
         });
     }
@@ -261,6 +281,58 @@ public final class DemoApp implements EntryPoint {
                         + "    .register(\"lucide\", LucideIcons.provider());\n\n"
                         + "registry.icon(\"lucide\", \"search\")\n"
                         + "    .ariaLabel(\"Search\");"));
+    }
+
+    private void renderIconsPage() {
+        clearContent();
+        content.appendChild(textElement("h1", "", "Icons"));
+        content.appendChild(textElement("p", "demo-muted", "The Lucide module is separate from the core UI module and exposes 1960 generated SVG icons. The gallery initially renders a limited slice; use search to narrow the catalog."));
+
+        HTMLElement usage = componentSection("icon-usage", "Icon Usage", "Standalone icons, Button composition, and explicit provider registration.");
+        HTMLElement usageGrid = examplesGrid();
+        renderIcons(usageGrid);
+        usage.appendChild(usageGrid);
+        content.appendChild(usage);
+
+        HTMLElement gallerySection = componentSection("lucide-gallery", "Lucide Gallery", "Browse the generated Lucide icon factories available from gwt-fusion-icons-lucide.");
+        HTMLElement controls = element("div", "demo-icon-gallery-controls");
+        HTMLInputElement search = (HTMLInputElement) Input.create()
+                .type("search")
+                .placeholder("Filter icons, e.g. search, arrow, calendar")
+                .element();
+        HTMLElement status = textElement("p", "demo-muted", "");
+        controls.appendChild(search);
+        controls.appendChild(status);
+        HTMLElement gallery = element("div", "demo-icon-gallery");
+        search.addEventListener("input", event -> renderLucideGallery(search.value, gallery, status));
+        gallerySection.appendChild(controls);
+        gallerySection.appendChild(gallery);
+        content.appendChild(gallerySection);
+        renderLucideGallery("", gallery, status);
+    }
+
+    private void renderLucideGallery(String query, HTMLElement gallery, HTMLElement status) {
+        clear(gallery);
+        String filter = query == null ? "" : query.toLowerCase();
+        String[] names = LucideIcons.names();
+        int matched = 0;
+        int rendered = 0;
+        for (String name : names) {
+            if (!filter.isEmpty() && !name.toLowerCase().contains(filter)) {
+                continue;
+            }
+            matched++;
+            if (rendered >= ICON_GALLERY_LIMIT) {
+                continue;
+            }
+            HTMLElement item = element("div", "demo-icon-card");
+            item.appendChild(LucideIcons.icon(name).size(24).decorative().element());
+            item.appendChild(textElement("span", "demo-icon-name", name));
+            item.appendChild(textElement("code", "demo-icon-code", "LucideIcons.icon(\"" + name + "\")"));
+            gallery.appendChild(item);
+            rendered++;
+        }
+        status.textContent = "Showing " + rendered + " of " + matched + " matching icons (" + names.length + " total).";
     }
 
     private void renderLayout(HTMLElement grid) {
@@ -719,8 +791,12 @@ public final class DemoApp implements EntryPoint {
     }
 
     private void clearContent() {
-        while (content.firstChild != null) {
-            content.removeChild(content.firstChild);
+        clear(content);
+    }
+
+    private void clear(HTMLElement element) {
+        while (element.firstChild != null) {
+            element.removeChild(element.firstChild);
         }
     }
 }

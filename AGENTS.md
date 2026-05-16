@@ -7,6 +7,7 @@ Dieses Repository enthaelt `gwt-fusion-ui`, eine UI-Komponentenbibliothek fuer G
 ## Module
 
 - `gwt-fusion-ui`: Wiederverwendbare Komponentenbibliothek unter dem Package `org.gwtfusion.ui`.
+- `gwt-fusion-icons-lucide`: Optionales Lucide-Icon-Modul unter `org.gwtfusion.icons.lucide`.
 - `gwt-fusion-ui-demo`: GWT-Demo-Webseite mit visuellen Komponentenbeispielen und Code-Snippets.
 
 ## Architekturregeln
@@ -58,4 +59,4 @@ Dieses Repository enthaelt `gwt-fusion-ui`, eine UI-Komponentenbibliothek fuer G
 - Basisklassen: `UiComponent`, `BaseComponent`, `CssClasses`, `ThemeManager`.
 - Demo: Startseite, Komponentenansicht mit kategorisierten Preview/Java-Code-Beispielen, Form-Foundation-Beispiele, Layout-/Navigation-Beispiele, Themeansicht.
 - Tailwind 3 ist eingerichtet und wird ueber `frontend-maven-plugin` ausgefuehrt.
-- Aktueller Arbeitsstand: Milestone 6 Icon System Foundation ist auf Branch `milestone-6-icon-system-foundation` in Arbeit.
+- Aktueller Arbeitsstand: Milestone 7 Icon Modules ist auf Branch `milestone-7-icon-modules` in Arbeit.

@@ -5,6 +5,7 @@ GWT Fusion ist ein Maven-Multi-Modul-Projekt fuer eine GWT 2.13 und J2CL-kompati
 ## Module
 
 - `gwt-fusion-ui`: Komponentenbibliothek unter `org.gwtfusion.ui`.
+- `gwt-fusion-icons-lucide`: Optionales Lucide-Icon-Modul, getrennt von der Core-UI.
 - `gwt-fusion-ui-demo`: Beispiel-Webseite mit visuellen Komponenten und Java-Codebeispielen.
 
 ## Build
@@ -100,5 +101,6 @@ Weitere API-Details:
 
 - `docs/events.md`
 - `docs/icons.md`
+- `docs/icon-modules.md`
 
 Weitere Entwicklungsregeln stehen in `AGENTS.md`.

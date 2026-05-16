@@ -197,6 +197,46 @@ pre {
   grid-template-columns: 1fr;
 }
 
+.demo-icon-gallery-controls {
+  display: grid;
+  gap: .75rem;
+}
+
+.demo-icon-gallery-controls input {
+  max-width: 32rem;
+}
+
+.demo-icon-gallery {
+  display: grid;
+  gap: .75rem;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+}
+
+.demo-icon-card {
+  align-items: center;
+  border: 1px solid hsl(var(--border));
+  border-radius: .75rem;
+  display: grid;
+  gap: .45rem;
+  justify-items: center;
+  min-height: 7rem;
+  padding: .75rem;
+  text-align: center;
+}
+
+.demo-icon-name {
+  color: hsl(var(--foreground));
+  font-size: .8rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.demo-icon-code {
+  color: hsl(var(--muted-foreground));
+  font-size: .68rem;
+  overflow-wrap: anywhere;
+}
+
 .demo-preview [role="alert"] {
   width: 100%;
 }
