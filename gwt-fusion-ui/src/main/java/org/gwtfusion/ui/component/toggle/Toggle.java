@@ -3,6 +3,8 @@ package org.gwtfusion.ui.component.toggle;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLButtonElement;
 import org.gwtfusion.ui.BaseComponent;
+import org.gwtfusion.ui.event.ListenerRegistration;
+import org.gwtfusion.ui.event.ValueChangeListener;
 
 public final class Toggle extends BaseComponent<Toggle> {
     public static final String BASE_CLASSES = "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
@@ -56,6 +58,10 @@ public final class Toggle extends BaseComponent<Toggle> {
 
     public boolean pressed() {
         return pressed;
+    }
+
+    public ListenerRegistration onPressedChange(ValueChangeListener<Boolean> listener) {
+        return listen("click", event -> listener.onValueChange(pressed));
     }
 
     public Toggle disabled(boolean disabled) {

@@ -131,6 +131,12 @@ public final class DemoApp implements EntryPoint {
         forms.appendChild(formsGrid);
         content.appendChild(forms);
 
+        HTMLElement events = componentSection("events", "Events", "Elemental2-oriented listener registrations and semantic value-change callbacks for interactive components.");
+        HTMLElement eventsGrid = examplesGrid();
+        renderEvents(eventsGrid);
+        events.appendChild(eventsGrid);
+        content.appendChild(events);
+
         HTMLElement feedback = componentSection("feedback", "Feedback", "Components for communicating status, warnings, and contextual messages.");
         HTMLElement feedbackGrid = examplesGrid();
         renderFeedback(feedbackGrid);
@@ -466,6 +472,64 @@ public final class DemoApp implements EntryPoint {
                         + "    .message(\"Name must contain at least 2 characters.\");"));
     }
 
+    private void renderEvents(HTMLElement grid) {
+        HTMLElement sliderEvents = preview("demo-stack-preview");
+        Slider liveSlider = Slider.create().min(0).max(100).step(1).value(65);
+        HTMLElement liveValue = textElement("p", "demo-muted", "Live value: 65.0");
+        HTMLElement commitValue = textElement("p", "demo-muted", "Committed value: not yet");
+        liveSlider.onValueChange(value -> liveValue.textContent = "Live value: " + value);
+        liveSlider.onValueCommit(value -> commitValue.textContent = "Committed value: " + value);
+        sliderEvents.appendChild(textElement("p", "demo-muted", "Drag the slider to see input events update immediately. Release it to commit the value."));
+        sliderEvents.appendChild(liveSlider.element());
+        sliderEvents.appendChild(liveValue);
+        sliderEvents.appendChild(commitValue);
+        grid.appendChild(example("Slider events", sliderEvents,
+                "Slider slider = Slider.create()\n"
+                        + "    .min(0)\n"
+                        + "    .max(100)\n"
+                        + "    .step(1)\n"
+                        + "    .value(65);\n\n"
+                        + "slider.onValueChange(value -> {\n"
+                        + "    // DOM input: fires while dragging\n"
+                        + "});\n\n"
+                        + "slider.onValueCommit(value -> {\n"
+                        + "    // DOM change: fires when committed\n"
+                        + "});"));
+
+        HTMLElement stateEvents = preview("demo-stack-preview");
+        Switch notifications = Switch.create().checked(true);
+        HTMLElement switchStatus = textElement("p", "demo-muted", "Notifications: on");
+        notifications.onCheckedChange(checked -> switchStatus.textContent = "Notifications: " + (checked ? "on" : "off"));
+
+        ToggleGroup alignment = ToggleGroup.create()
+                .type(ToggleGroupType.SINGLE)
+                .addItem("left", "Left")
+                .addItem("center", "Center")
+                .addItem("right", "Right")
+                .value("center");
+        HTMLElement alignmentStatus = textElement("p", "demo-muted", "Alignment: center");
+        alignment.onValueChange(value -> alignmentStatus.textContent = "Alignment: " + value);
+
+        stateEvents.appendChild(labelled("Notifications", notifications));
+        stateEvents.appendChild(switchStatus);
+        stateEvents.appendChild(alignment.element());
+        stateEvents.appendChild(alignmentStatus);
+        grid.appendChild(example("State change listeners", stateEvents,
+                "Switch notifications = Switch.create().checked(true);\n"
+                        + "notifications.onCheckedChange(checked -> {\n"
+                        + "    // checked is Boolean\n"
+                        + "});\n\n"
+                        + "ToggleGroup alignment = ToggleGroup.create()\n"
+                        + "    .type(ToggleGroupType.SINGLE)\n"
+                        + "    .addItem(\"left\", \"Left\")\n"
+                        + "    .addItem(\"center\", \"Center\")\n"
+                        + "    .addItem(\"right\", \"Right\")\n"
+                        + "    .value(\"center\");\n\n"
+                        + "alignment.onValueChange(value -> {\n"
+                        + "    // value is the selected item key\n"
+                        + "});"));
+    }
+
     private void renderFeedback(HTMLElement grid) {
         HTMLElement alerts = preview();
         alerts.appendChild(Alert.create()
@@ -493,6 +557,7 @@ public final class DemoApp implements EntryPoint {
         nav.appendChild(categoryLink("Actions", "#actions"));
         nav.appendChild(categoryLink("Layout", "#layout"));
         nav.appendChild(categoryLink("Forms", "#forms"));
+        nav.appendChild(categoryLink("Events", "#events"));
         nav.appendChild(categoryLink("Feedback", "#feedback"));
         return nav;
     }

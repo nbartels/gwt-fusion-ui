@@ -68,7 +68,26 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 - [x] Verify `mvn -Dskip.tailwind=true verify`.
 - [x] Verify demo GWT compile.
 
-## Milestone 5: Icon System Foundation
+## Milestone 5: Event Listener Foundation
+
+- [x] Define `ListenerRegistration` as the lightweight Elemental2-oriented equivalent to GWT `HandlerRegistration`.
+- [x] Add `ListenerRegistration.remove()` and a default `close()` convenience method.
+- [x] Define `ValueChangeListener<T>` for semantic component value changes.
+- [x] Add `BaseComponent.listen(String, EventListener)` returning `ListenerRegistration`.
+- [x] Add capture/options support only if real component usage requires it.
+- [x] Keep existing fluent convenience methods like `onClick(...)` source-compatible.
+- [x] Add `Slider.onValueChange(ValueChangeListener<Double>)` mapped to the DOM `input` event.
+- [x] Add `Slider.onValueCommit(ValueChangeListener<Double>)` mapped to the DOM `change` event.
+- [x] Add `Slider.doubleValue()` or another typed value accessor for numeric event payloads.
+- [x] Ensure programmatic setters like `Slider.value(double)` do not fire listeners implicitly.
+- [x] Add listener examples to the demo, starting with a live `Slider` value preview.
+- [x] Add JVM tests for listener registration helpers where possible without DOM execution.
+- [x] Document the pattern for future semantic listeners: `onCheckedChange`, `onPressedChange`, `onOpenChange`, and `onValueChange`.
+- [x] Roll the semantic listener pattern into `Checkbox`, `Switch`, `RadioGroup`, `Tabs`, `Toggle`, `ToggleGroup`, `Collapsible`, and `Accordion` as needed.
+- [x] Verify `mvn -Dskip.tailwind=true verify`.
+- [x] Verify demo GWT compile.
+
+## Milestone 6: Icon System Foundation
 
 - [ ] Define `Icon` as a `UiComponent`.
 - [ ] Define `IconProvider`.
@@ -91,7 +110,7 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 - [ ] Verify `mvn -Dskip.tailwind=true verify`.
 - [ ] Verify demo GWT compile.
 
-## Milestone 6: Icon Modules
+## Milestone 7: Icon Modules
 
 - [ ] Add Maven module `gwt-fusion-icons-lucide`.
 - [ ] Include Lucide attribution and license files.
@@ -108,7 +127,7 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 - [ ] Verify icon module build through Maven.
 - [ ] Verify demo can use Lucide module.
 
-## Milestone 7: Overlay Infrastructure
+## Milestone 8: Overlay Infrastructure
 
 - [ ] Implement `IdGenerator` for ARIA relationships.
 - [ ] Implement `Keyboard` utility.
@@ -124,7 +143,7 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 - [ ] Verify `mvn -Dskip.tailwind=true verify`.
 - [ ] Verify demo GWT compile.
 
-## Milestone 8: Overlay Components
+## Milestone 9: Overlay Components
 
 - [ ] Implement `Tooltip` with hover and focus triggers.
 - [ ] Implement `Popover`.
@@ -143,7 +162,7 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 - [ ] Verify `mvn -Dskip.tailwind=true verify`.
 - [ ] Verify demo GWT compile.
 
-## Milestone 9: Feedback Components
+## Milestone 10: Feedback Components
 
 - [ ] Implement `Progress` with ARIA progress attributes.
 - [ ] Implement `Skeleton`.
@@ -159,7 +178,7 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 - [ ] Verify `mvn -Dskip.tailwind=true verify`.
 - [ ] Verify demo GWT compile.
 
-## Milestone 10: Data Display Components
+## Milestone 11: Data Display Components
 
 - [ ] Implement `Table`.
 - [ ] Implement `Avatar`.
@@ -178,7 +197,7 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 - [ ] Verify `mvn -Dskip.tailwind=true verify`.
 - [ ] Verify demo GWT compile.
 
-## Milestone 11: Advanced UX Components
+## Milestone 12: Advanced UX Components
 
 - [ ] Decide whether `CommandPalette` is needed for the first public release or should remain optional advanced UX.
 - [ ] Document the distinction between GWT `Command` callbacks and the shadcn-inspired command-palette UI pattern.
@@ -197,7 +216,7 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 - [ ] Verify `mvn -Dskip.tailwind=true verify`.
 - [ ] Verify demo GWT compile.
 
-## Milestone 12: Direction, RTL, And Theming Depth
+## Milestone 13: Direction, RTL, And Theming Depth
 
 - [ ] Decide how `Direction` and RTL support should be represented in Java.
 - [ ] Decide whether direction belongs in `ThemeManager`, a new `DirectionManager`, or document-level utilities.
@@ -210,7 +229,7 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 - [ ] Verify `mvn -Dskip.tailwind=true verify`.
 - [ ] Verify demo GWT compile.
 
-## Milestone 13: Build, Tests, And Release Readiness
+## Milestone 14: Build, Tests, And Release Readiness
 
 - [ ] Decide how strict J2CL compatibility checks should become in Maven.
 - [ ] Add or document a J2CL compatibility profile.

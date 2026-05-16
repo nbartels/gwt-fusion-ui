@@ -1,7 +1,6 @@
 package org.gwtfusion.ui.component.tabs;
 
 import elemental2.dom.DomGlobal;
-import elemental2.dom.Event;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.KeyboardEvent;
 import java.util.ArrayList;
@@ -9,6 +8,8 @@ import java.util.List;
 import org.gwtfusion.ui.BaseComponent;
 import org.gwtfusion.ui.UiComponent;
 import org.gwtfusion.ui.css.CssClasses;
+import org.gwtfusion.ui.event.ListenerRegistration;
+import org.gwtfusion.ui.event.ValueChangeListener;
 
 public final class Tabs extends BaseComponent<Tabs> {
     public static final String ROOT_CLASSES = "grid gap-2";
@@ -20,6 +21,7 @@ public final class Tabs extends BaseComponent<Tabs> {
 
     private final HTMLElement list;
     private final List<Item> items = new ArrayList<>();
+    private final List<ValueChangeListener<String>> valueChangeListeners = new ArrayList<>();
     private String value;
 
     private Tabs(HTMLElement element) {
@@ -54,13 +56,13 @@ public final class Tabs extends BaseComponent<Tabs> {
 
         Item item = new Item(safeValue, trigger, panel);
         items.add(item);
-        trigger.addEventListener("click", event -> select(safeValue));
+        trigger.addEventListener("click", event -> select(safeValue, true));
         trigger.addEventListener("keydown", event -> onKeyDown((KeyboardEvent) event, item));
         list.appendChild(trigger);
         element().appendChild(panel);
 
         if (items.size() == 1) {
-            select(safeValue);
+            select(safeValue, false);
         } else {
             applyItemState(item, false);
         }
@@ -68,7 +70,7 @@ public final class Tabs extends BaseComponent<Tabs> {
     }
 
     public Tabs value(String value) {
-        select(value);
+        select(value, false);
         return this;
     }
 
@@ -76,10 +78,25 @@ public final class Tabs extends BaseComponent<Tabs> {
         return value == null ? "" : value;
     }
 
-    private void select(String nextValue) {
+    public ListenerRegistration onValueChange(ValueChangeListener<String> listener) {
+        valueChangeListeners.add(listener);
+        return () -> valueChangeListeners.remove(listener);
+    }
+
+    private void select(String nextValue, boolean notify) {
+        String previous = value();
         value = nextValue == null ? "" : nextValue;
         for (Item item : items) {
             applyItemState(item, item.value.equals(value));
+        }
+        if (notify && !previous.equals(value)) {
+            notifyValueChange();
+        }
+    }
+
+    private void notifyValueChange() {
+        for (ValueChangeListener<String> listener : new ArrayList<>(valueChangeListeners)) {
+            listener.onValueChange(value());
         }
     }
 
@@ -122,7 +139,7 @@ public final class Tabs extends BaseComponent<Tabs> {
 
     private void focusAndSelect(int index) {
         Item item = items.get(index);
-        select(item.value);
+        select(item.value, true);
         item.trigger.focus();
     }
 

@@ -4,6 +4,8 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLInputElement;
 import org.gwtfusion.ui.BaseComponent;
 import org.gwtfusion.ui.component.form.FormControl;
+import org.gwtfusion.ui.event.ListenerRegistration;
+import org.gwtfusion.ui.event.ValueChangeListener;
 
 public final class Checkbox extends BaseComponent<Checkbox> implements FormControl<Checkbox> {
     public static final String BASE_CLASSES = "h-4 w-4 rounded border border-input accent-primary shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
@@ -26,6 +28,10 @@ public final class Checkbox extends BaseComponent<Checkbox> implements FormContr
 
     public boolean checked() {
         return ((HTMLInputElement) element()).checked;
+    }
+
+    public ListenerRegistration onCheckedChange(ValueChangeListener<Boolean> listener) {
+        return listen("change", event -> listener.onValueChange(checked()));
     }
 
     public Checkbox disabled(boolean disabled) {

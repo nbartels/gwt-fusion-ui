@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.gwtfusion.ui.BaseComponent;
 import org.gwtfusion.ui.component.form.FormControl;
+import org.gwtfusion.ui.event.ListenerRegistration;
+import org.gwtfusion.ui.event.ValueChangeListener;
 
 public final class RadioGroup extends BaseComponent<RadioGroup> implements FormControl<RadioGroup> {
     public static final String OPTION_CLASSES = "inline-flex items-center gap-2 text-sm font-medium leading-none";
@@ -67,6 +69,10 @@ public final class RadioGroup extends BaseComponent<RadioGroup> implements FormC
             }
         }
         return "";
+    }
+
+    public ListenerRegistration onValueChange(ValueChangeListener<String> listener) {
+        return listen("change", event -> listener.onValueChange(value()));
     }
 
     public RadioGroup disabled(boolean disabled) {

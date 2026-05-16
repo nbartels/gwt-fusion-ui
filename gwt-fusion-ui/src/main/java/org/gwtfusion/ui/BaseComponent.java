@@ -3,6 +3,7 @@ package org.gwtfusion.ui;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import org.gwtfusion.ui.css.CssClasses;
+import org.gwtfusion.ui.event.ListenerRegistration;
 
 public abstract class BaseComponent<T extends BaseComponent<T>> implements UiComponent {
     private final HTMLElement element;
@@ -55,6 +56,11 @@ public abstract class BaseComponent<T extends BaseComponent<T>> implements UiCom
     public final T onClick(EventListener listener) {
         element.addEventListener("click", listener);
         return self();
+    }
+
+    public final ListenerRegistration listen(String type, EventListener listener) {
+        element.addEventListener(type, listener);
+        return () -> element.removeEventListener(type, listener);
     }
 
     @SuppressWarnings("unchecked")

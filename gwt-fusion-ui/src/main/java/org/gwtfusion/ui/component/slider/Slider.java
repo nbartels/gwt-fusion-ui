@@ -4,6 +4,8 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLInputElement;
 import org.gwtfusion.ui.BaseComponent;
 import org.gwtfusion.ui.component.form.FormControl;
+import org.gwtfusion.ui.event.ListenerRegistration;
+import org.gwtfusion.ui.event.ValueChangeListener;
 
 public final class Slider extends BaseComponent<Slider> implements FormControl<Slider> {
     public static final String BASE_CLASSES = "h-2 w-full cursor-pointer appearance-none rounded-full bg-secondary accent-primary disabled:cursor-not-allowed disabled:opacity-50";
@@ -40,6 +42,22 @@ public final class Slider extends BaseComponent<Slider> implements FormControl<S
 
     public String value() {
         return ((HTMLInputElement) element()).value;
+    }
+
+    public double doubleValue() {
+        String value = value();
+        if (value == null || value.isEmpty()) {
+            return 0;
+        }
+        return Double.parseDouble(value);
+    }
+
+    public ListenerRegistration onValueChange(ValueChangeListener<Double> listener) {
+        return listen("input", event -> listener.onValueChange(doubleValue()));
+    }
+
+    public ListenerRegistration onValueCommit(ValueChangeListener<Double> listener) {
+        return listen("change", event -> listener.onValueChange(doubleValue()));
     }
 
     @Override

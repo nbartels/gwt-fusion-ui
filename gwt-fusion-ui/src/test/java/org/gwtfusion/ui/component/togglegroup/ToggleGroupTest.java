@@ -12,4 +12,11 @@ class ToggleGroupTest {
         assertEquals(ToggleGroupType.SINGLE, ToggleGroupType.valueOf("SINGLE"));
         assertEquals(ToggleGroupType.MULTIPLE, ToggleGroupType.valueOf("MULTIPLE"));
     }
+
+    @Test
+    void exposesSingleAndMultipleValueListenerApi() throws NoSuchMethodException {
+        ToggleGroup.class.getMethod("onValueChange", org.gwtfusion.ui.event.ValueChangeListener.class);
+        ToggleGroup.class.getMethod("onValuesChange", org.gwtfusion.ui.event.ValueChangeListener.class);
+        ToggleGroup.class.getMethod("values");
+    }
 }
