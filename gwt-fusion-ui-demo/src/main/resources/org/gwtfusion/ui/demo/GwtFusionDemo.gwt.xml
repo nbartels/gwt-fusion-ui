@@ -2,6 +2,7 @@
 <module rename-to="gwtfusiondemo">
   <inherits name="com.google.gwt.user.User"/>
   <inherits name="org.gwtfusion.ui.GwtFusionUi"/>
+  <inherits name="org.gwtfusion.icons.lucide.GwtFusionLucide"/>
   <entry-point class="org.gwtfusion.ui.demo.DemoApp"/>
   <source path=""/>
 </module>

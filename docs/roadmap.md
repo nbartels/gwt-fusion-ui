@@ -288,7 +288,7 @@ IconRegistry registry = IconRegistry.create()
 
 - `Icon`, `IconProvider`, `IconRegistry`, `IconTheme`, `IconVariant`, and `IconSize` are implemented in the core UI module.
 - `Icon` uses an `HTMLElement` root with an inline SVG child to preserve the existing `UiComponent.element()` contract.
-- A small `LucideIcons` proof of concept is available in core; larger icon packs remain planned as optional modules.
+- The complete `lucide-static` icon set is available in the separate `gwt-fusion-icons-lucide` module; core stays icon-set agnostic.
 - `Button.icon(Icon icon)` is implemented and treats composed button icons as decorative.
 
 ### Default Icon Set
@@ -312,6 +312,8 @@ Create independent Maven modules for optional icon packs.
 - `gwt-fusion-icons-phosphor`
 - `gwt-fusion-icons-heroicons`
 - Optional: `gwt-fusion-icons-fontawesome`
+
+`gwt-fusion-icons-lucide` is implemented as the reference module. Tabler, Phosphor, and Heroicons remain planned optional modules.
 
 Each module should:
 
@@ -396,7 +398,7 @@ LucideIcons.search()
 
 ### Implementation Notes
 
-- `Icon`, `IconProvider`, `IconRegistry`, and a small Lucide proof of concept are implemented.
+- `Icon`, `IconProvider`, and `IconRegistry` are implemented in core; the complete Lucide set is generated into `gwt-fusion-icons-lucide`.
 - `Icon` stays a `UiComponent` so it can be composed into buttons, inputs, menu items, and alerts.
 - `Button.icon(Icon icon)` is implemented after the base `Icon` API was introduced.
 - Store path data in Java constants or generated Java classes, not in runtime-loaded font files.

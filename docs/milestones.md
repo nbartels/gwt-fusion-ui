@@ -112,20 +112,21 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 
 ## Milestone 7: Icon Modules
 
-- [ ] Add Maven module `gwt-fusion-icons-lucide`.
-- [ ] Include Lucide attribution and license files.
-- [ ] Decide whether Lucide Java classes are generated or maintained manually.
-- [ ] Implement `LucideIconProvider`.
-- [ ] Implement `LucideIcons` static factory API.
-- [ ] Add a minimal set of commonly used Lucide icons.
-- [ ] Ensure icon modules contain only their own icon assets.
-- [ ] Ensure icon module code has no heavy static initialization.
-- [ ] Add optional module plan for `gwt-fusion-icons-tabler`.
-- [ ] Add optional module plan for `gwt-fusion-icons-phosphor`.
-- [ ] Add optional module plan for `gwt-fusion-icons-heroicons`.
-- [ ] Document Font Awesome as optional and license-sensitive.
-- [ ] Verify icon module build through Maven.
-- [ ] Verify demo can use Lucide module.
+- [x] Add Maven module `gwt-fusion-icons-lucide`.
+- [x] Include Lucide attribution and license files.
+- [x] Decide whether Lucide Java classes are generated or maintained manually.
+- [x] Implement `LucideIconProvider`.
+- [x] Implement `LucideIcons` static factory API.
+- [x] Generate and check in the complete Lucide icon set from `lucide-static`.
+- [x] Ensure icon modules contain only their own icon assets.
+- [x] Ensure icon module code has no heavy static initialization.
+- [x] Add optional module plan for `gwt-fusion-icons-tabler`.
+- [x] Add optional module plan for `gwt-fusion-icons-phosphor`.
+- [x] Add optional module plan for `gwt-fusion-icons-heroicons`.
+- [x] Document Font Awesome as optional and license-sensitive.
+- [x] Verify icon module build through Maven.
+- [x] Verify demo can use Lucide module.
+- [x] Add searchable demo gallery for the complete Lucide icon set.
 
 ## Milestone 8: Overlay Infrastructure
 
@@ -245,6 +246,34 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 - [ ] Verify `mvn -pl gwt-fusion-ui generate-resources`.
 - [ ] Verify `mvn -Pdemo -pl gwt-fusion-ui-demo -am -Dskip.tailwind=true package`.
 - [ ] Verify GitHub Pages deployment workflow.
+
+## Milestone 15: Additional Icon Packs
+
+- [ ] Add Maven module `gwt-fusion-icons-tabler`.
+- [ ] Include Tabler attribution and license files.
+- [ ] Implement `TablerIconProvider`.
+- [ ] Implement `TablerIcons` static factory API.
+- [ ] Add a minimal set of commonly used Tabler icons.
+- [ ] Add Maven module `gwt-fusion-icons-heroicons`.
+- [ ] Include Heroicons attribution and license files.
+- [ ] Decide how Heroicons outline, solid, and mini variants should be represented.
+- [ ] Implement `HeroIconProvider`.
+- [ ] Implement `HeroIcons` static factory API.
+- [ ] Add a minimal set of commonly used Heroicons.
+- [ ] Add Maven module `gwt-fusion-icons-phosphor`.
+- [ ] Include Phosphor attribution and license files.
+- [ ] Decide how Phosphor weights such as thin, light, regular, bold, fill, and duotone should be represented.
+- [ ] Implement `PhosphorIconProvider`.
+- [ ] Implement `PhosphorIcons` static factory API.
+- [ ] Add a minimal set of commonly used Phosphor icons.
+- [ ] Ensure each icon pack remains independently usable without pulling in the other icon modules.
+- [ ] Ensure each icon module contains only its own icon assets and metadata.
+- [ ] Ensure each icon module avoids global CSS, icon fonts, heavy static initialization, and implicit global registration.
+- [ ] Add demo examples that show switching between independently imported icon packs.
+- [ ] Verify each icon module build through Maven.
+- [ ] Verify demo can use multiple icon modules together.
+- [ ] Verify `mvn -Dskip.tailwind=true verify`.
+- [ ] Verify demo GWT compile.
 
 ## Milestone Definition Of Done
 

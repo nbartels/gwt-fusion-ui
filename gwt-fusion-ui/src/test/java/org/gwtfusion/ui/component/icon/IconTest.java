@@ -1,7 +1,6 @@
 package org.gwtfusion.ui.component.icon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -37,8 +36,4 @@ class IconTest {
         assertNull(registry.icon("missing", "search"));
     }
 
-    @Test
-    void lucideProofOfConceptExposesProvider() {
-        assertNotNull(LucideIcons.provider());
-    }
 }

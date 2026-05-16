@@ -86,35 +86,41 @@ public final class Icon extends BaseComponent<Icon> {
     }
 
     public Icon path(String d) {
-        Element path = DomGlobal.document.createElementNS(SVG_NAMESPACE, "path");
-        path.setAttribute("d", d == null ? "" : d);
-        svg.appendChild(path);
-        return this;
+        return element("path", "d", d == null ? "" : d);
     }
 
     public Icon circle(double cx, double cy, double r) {
-        Element circle = DomGlobal.document.createElementNS(SVG_NAMESPACE, "circle");
-        circle.setAttribute("cx", String.valueOf(cx));
-        circle.setAttribute("cy", String.valueOf(cy));
-        circle.setAttribute("r", String.valueOf(r));
-        svg.appendChild(circle);
-        return this;
+        return element("circle", "cx", String.valueOf(cx), "cy", String.valueOf(cy), "r", String.valueOf(r));
     }
 
     public Icon line(double x1, double y1, double x2, double y2) {
-        Element line = DomGlobal.document.createElementNS(SVG_NAMESPACE, "line");
-        line.setAttribute("x1", String.valueOf(x1));
-        line.setAttribute("y1", String.valueOf(y1));
-        line.setAttribute("x2", String.valueOf(x2));
-        line.setAttribute("y2", String.valueOf(y2));
-        svg.appendChild(line);
-        return this;
+        return element("line", "x1", String.valueOf(x1), "y1", String.valueOf(y1), "x2", String.valueOf(x2), "y2", String.valueOf(y2));
     }
 
     public Icon polyline(String points) {
-        Element polyline = DomGlobal.document.createElementNS(SVG_NAMESPACE, "polyline");
-        polyline.setAttribute("points", points == null ? "" : points);
-        svg.appendChild(polyline);
+        return element("polyline", "points", points == null ? "" : points);
+    }
+
+    public Icon rect(String x, String y, String width, String height) {
+        return element("rect", "x", x, "y", y, "width", width, "height", height);
+    }
+
+    public Icon ellipse(String cx, String cy, String rx, String ry) {
+        return element("ellipse", "cx", cx, "cy", cy, "rx", rx, "ry", ry);
+    }
+
+    public Icon polygon(String points) {
+        return element("polygon", "points", points == null ? "" : points);
+    }
+
+    public Icon element(String tagName, String... attributes) {
+        Element child = DomGlobal.document.createElementNS(SVG_NAMESPACE, tagName == null ? "path" : tagName);
+        if (attributes != null) {
+            for (int i = 0; i + 1 < attributes.length; i += 2) {
+                child.setAttribute(attributes[i], attributes[i + 1] == null ? "" : attributes[i + 1]);
+            }
+        }
+        svg.appendChild(child);
         return this;
     }
 }

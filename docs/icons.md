@@ -4,9 +4,13 @@
 
 `Icon` is a `UiComponent`. Its root is a lightweight `span` so it fits the existing `HTMLElement element()` contract, and the rendered graphic is an inline SVG child.
 
+Concrete icon sets are provided by separate modules. Lucide icons live in `gwt-fusion-icons-lucide` under `org.gwtfusion.icons.lucide`.
+
 ## Basic Usage
 
 ```java
+import org.gwtfusion.icons.lucide.LucideIcons;
+
 LucideIcons.check()
     .variant(IconVariant.PRIMARY)
     .ariaLabel("Confirmed");
@@ -54,4 +58,6 @@ registry.icon("lucide", "search")
     .ariaLabel("Search");
 ```
 
-The current Lucide support is a small proof of concept. Larger icon packs should move into optional modules and may be generated from source data.
+The Lucide support in the optional `gwt-fusion-icons-lucide` module is generated from `lucide-static` and checked in. Larger icon packs should stay in optional modules and may follow the same generated-source pattern.
+
+The demo has a dedicated Icons page with a searchable Lucide gallery for browsing the full generated set.
