@@ -48,6 +48,7 @@ Dieses Repository enthaelt `gwt-fusion-ui`, eine UI-Komponentenbibliothek fuer G
 
 - Minimalen shadcn-nahen HTML-Aufbau verwenden.
 - Accessibility-Attribute direkt in der Komponente setzen, wenn sie zum semantischen Vertrag gehoeren.
+- Neue interaktive Komponenten sollen, falls sinnvoll, semantische Listener wie `onValueChange`, `onCheckedChange`, `onPressedChange` oder `onOpenChange` anbieten und `ListenerRegistration` zur Abmeldung zurueckgeben.
 - API-Beispiele in der Demo aktuell halten.
 - Tailwind-Klassen nicht uebermaessig abstrahieren. Kleine Enums sind besser als komplexe Builder.
 
