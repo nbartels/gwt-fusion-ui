@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.gwtfusion.ui.BaseComponent;
 import org.gwtfusion.ui.UiComponent;
+import org.gwtfusion.ui.event.ListenerRegistration;
+import org.gwtfusion.ui.event.ValueChangeListener;
 
 public final class Accordion extends BaseComponent<Accordion> {
     public static final String ROOT_CLASSES = "grid w-full gap-1";
@@ -16,6 +18,7 @@ public final class Accordion extends BaseComponent<Accordion> {
     public static final String CONTENT_CLASSES = "pb-4 text-sm text-muted-foreground";
 
     private final List<Item> items = new ArrayList<>();
+    private final List<ValueChangeListener<String>> valueChangeListeners = new ArrayList<>();
 
     private Accordion(HTMLElement element) {
         super(element);
@@ -61,10 +64,34 @@ public final class Accordion extends BaseComponent<Accordion> {
         return this;
     }
 
+    public String value() {
+        for (Item item : items) {
+            if (item.open) {
+                return item.value;
+            }
+        }
+        return "";
+    }
+
+    public ListenerRegistration onValueChange(ValueChangeListener<String> listener) {
+        valueChangeListeners.add(listener);
+        return () -> valueChangeListeners.remove(listener);
+    }
+
     private void toggle(Item selected) {
+        String previous = value();
         boolean nextOpen = !selected.open;
         for (Item item : items) {
             apply(item, item == selected && nextOpen);
+        }
+        if (!previous.equals(value())) {
+            notifyValueChange();
+        }
+    }
+
+    private void notifyValueChange() {
+        for (ValueChangeListener<String> listener : new ArrayList<>(valueChangeListeners)) {
+            listener.onValueChange(value());
         }
     }
 

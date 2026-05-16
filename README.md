@@ -41,6 +41,18 @@ Dark Mode:
 ThemeManager.setMode(ThemeMode.DARK);
 ```
 
+Semantic component events:
+
+```java
+Slider.create()
+    .min(0)
+    .max(100)
+    .value(65)
+    .onValueChange(value -> {
+        // Live value while dragging.
+    });
+```
+
 ## Aktuelle Komponenten
 
 - `Button`
@@ -82,5 +94,9 @@ ThemeManager.setMode(ThemeMode.DARK);
 - Java-typische API mit Enums und fluenten Methoden.
 - Keine harte Kopplung an klassische GWT Widgets.
 - Code-Splitting auf Anwendungsebene, in der Demo ueber `GWT.runAsync` sichtbar gemacht.
+
+Weitere API-Details:
+
+- `docs/events.md`
 
 Weitere Entwicklungsregeln stehen in `AGENTS.md`.

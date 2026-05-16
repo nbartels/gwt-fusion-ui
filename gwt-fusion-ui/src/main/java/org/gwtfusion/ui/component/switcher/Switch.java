@@ -4,6 +4,8 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
 import org.gwtfusion.ui.BaseComponent;
+import org.gwtfusion.ui.event.ListenerRegistration;
+import org.gwtfusion.ui.event.ValueChangeListener;
 
 public final class Switch extends BaseComponent<Switch> {
     public static final String BASE_CLASSES = "inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
@@ -52,6 +54,10 @@ public final class Switch extends BaseComponent<Switch> {
 
     public boolean checked() {
         return checked;
+    }
+
+    public ListenerRegistration onCheckedChange(ValueChangeListener<Boolean> listener) {
+        return listen("click", event -> listener.onValueChange(checked));
     }
 
     public Switch disabled(boolean disabled) {

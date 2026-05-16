@@ -5,6 +5,8 @@ import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
 import org.gwtfusion.ui.BaseComponent;
 import org.gwtfusion.ui.UiComponent;
+import org.gwtfusion.ui.event.ListenerRegistration;
+import org.gwtfusion.ui.event.ValueChangeListener;
 
 public final class Collapsible extends BaseComponent<Collapsible> {
     public static final String ROOT_CLASSES = "grid gap-2";
@@ -58,5 +60,9 @@ public final class Collapsible extends BaseComponent<Collapsible> {
 
     public boolean open() {
         return open;
+    }
+
+    public ListenerRegistration onOpenChange(ValueChangeListener<Boolean> listener) {
+        return listen("click", event -> listener.onValueChange(open));
     }
 }
