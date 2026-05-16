@@ -3,6 +3,7 @@ package org.gwtfusion.ui.component.button;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLButtonElement;
 import org.gwtfusion.ui.BaseComponent;
+import org.gwtfusion.ui.component.icon.Icon;
 import org.gwtfusion.ui.css.CssClasses;
 
 public final class Button extends BaseComponent<Button> {
@@ -47,6 +48,13 @@ public final class Button extends BaseComponent<Button> {
     public Button disabled(boolean disabled) {
         ((HTMLButtonElement) element()).disabled = disabled;
         aria("disabled", String.valueOf(disabled));
+        return this;
+    }
+
+    public Button icon(Icon icon) {
+        if (icon != null) {
+            element().insertBefore(icon.decorative().element(), element().firstChild);
+        }
         return this;
     }
 }

@@ -22,6 +22,10 @@ import org.gwtfusion.ui.component.checkbox.Checkbox;
 import org.gwtfusion.ui.component.code.CodeBlock;
 import org.gwtfusion.ui.component.collapsible.Collapsible;
 import org.gwtfusion.ui.component.form.FormField;
+import org.gwtfusion.ui.component.icon.IconRegistry;
+import org.gwtfusion.ui.component.icon.IconSize;
+import org.gwtfusion.ui.component.icon.IconVariant;
+import org.gwtfusion.ui.component.icon.LucideIcons;
 import org.gwtfusion.ui.component.input.Input;
 import org.gwtfusion.ui.component.inputgroup.InputGroup;
 import org.gwtfusion.ui.component.label.Label;
@@ -119,6 +123,12 @@ public final class DemoApp implements EntryPoint {
         actions.appendChild(actionsGrid);
         content.appendChild(actions);
 
+        HTMLElement icons = componentSection("icons", "Icons", "SVG-first icon primitives with accessible labels, decorative mode, and Button composition.");
+        HTMLElement iconsGrid = examplesGrid();
+        renderIcons(iconsGrid);
+        icons.appendChild(iconsGrid);
+        content.appendChild(icons);
+
         HTMLElement layout = componentSection("layout", "Layout", "Structural components for grouping content and organizing interface regions.");
         HTMLElement layoutGrid = examplesGrid();
         renderLayout(layoutGrid);
@@ -208,6 +218,49 @@ public final class DemoApp implements EntryPoint {
                         + "    .addItem(\"center\", \"Center\")\n"
                         + "    .addItem(\"right\", \"Right\")\n"
                         + "    .value(\"center\");"));
+    }
+
+    private void renderIcons(HTMLElement grid) {
+        HTMLElement iconPreview = preview();
+        iconPreview.appendChild(LucideIcons.check().variant(IconVariant.PRIMARY).ariaLabel("Confirmed").element());
+        iconPreview.appendChild(LucideIcons.search().variant(IconVariant.MUTED).decorative().element());
+        iconPreview.appendChild(LucideIcons.x().variant(IconVariant.DESTRUCTIVE).size(IconSize.LG).ariaLabel("Close").element());
+        grid.appendChild(example("Icon", iconPreview,
+                "LucideIcons.check()\n"
+                        + "    .variant(IconVariant.PRIMARY)\n"
+                        + "    .ariaLabel(\"Confirmed\");\n\n"
+                        + "LucideIcons.search()\n"
+                        + "    .variant(IconVariant.MUTED)\n"
+                        + "    .decorative();\n\n"
+                        + "LucideIcons.x()\n"
+                        + "    .size(IconSize.LG)\n"
+                        + "    .ariaLabel(\"Close\");"));
+
+        HTMLElement buttonIcons = preview();
+        buttonIcons.appendChild(Button.create("Save").icon(LucideIcons.check()).element());
+        buttonIcons.appendChild(Button.create("Search").variant(ButtonVariant.OUTLINE).icon(LucideIcons.search()).element());
+        buttonIcons.appendChild(Button.create("").size(ButtonSize.ICON).variant(ButtonVariant.GHOST).icon(LucideIcons.x()).aria("label", "Close").element());
+        grid.appendChild(example("Button icons", buttonIcons,
+                "Button.create(\"Save\")\n"
+                        + "    .icon(LucideIcons.check());\n\n"
+                        + "Button.create(\"Search\")\n"
+                        + "    .variant(ButtonVariant.OUTLINE)\n"
+                        + "    .icon(LucideIcons.search());\n\n"
+                        + "Button.create(\"\")\n"
+                        + "    .size(ButtonSize.ICON)\n"
+                        + "    .variant(ButtonVariant.GHOST)\n"
+                        + "    .icon(LucideIcons.x())\n"
+                        + "    .aria(\"label\", \"Close\");"));
+
+        HTMLElement registryPreview = preview("demo-stack-preview");
+        IconRegistry registry = IconRegistry.create().register("lucide", LucideIcons.provider());
+        registryPreview.appendChild(registry.icon("lucide", "search").ariaLabel("Search").element());
+        registryPreview.appendChild(textElement("p", "demo-muted", "IconRegistry keeps providers explicit and avoids global icon registration."));
+        grid.appendChild(example("IconRegistry", registryPreview,
+                "IconRegistry registry = IconRegistry.create()\n"
+                        + "    .register(\"lucide\", LucideIcons.provider());\n\n"
+                        + "registry.icon(\"lucide\", \"search\")\n"
+                        + "    .ariaLabel(\"Search\");"));
     }
 
     private void renderLayout(HTMLElement grid) {
@@ -555,6 +608,7 @@ public final class DemoApp implements EntryPoint {
         HTMLElement nav = element("nav", "demo-category-nav");
         nav.setAttribute("aria-label", "Component categories");
         nav.appendChild(categoryLink("Actions", "#actions"));
+        nav.appendChild(categoryLink("Icons", "#icons"));
         nav.appendChild(categoryLink("Layout", "#layout"));
         nav.appendChild(categoryLink("Forms", "#forms"));
         nav.appendChild(categoryLink("Events", "#events"));

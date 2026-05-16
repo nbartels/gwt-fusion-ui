@@ -54,8 +54,8 @@ Dieses Repository enthaelt `gwt-fusion-ui`, eine UI-Komponentenbibliothek fuer G
 
 ## Aktueller Stand
 
-- Erste Komponenten: `Button`, `Badge`, `Card`, `Alert`, `Input`, `Label`, `Separator`, `Checkbox`, `Switch`, `Textarea`, `RadioGroup`, `FormField`, `NativeSelect`, `InputGroup`, `Slider`, `Tabs`, `CodeBlock`, `Accordion`, `Collapsible`, `AspectRatio`, `ButtonGroup`, `Breadcrumb`, `Pagination`, `ScrollArea`, `Toggle`, `ToggleGroup`, `Typography`.
+- Erste Komponenten: `Button`, `Badge`, `Card`, `Alert`, `Input`, `Label`, `Separator`, `Checkbox`, `Switch`, `Textarea`, `RadioGroup`, `FormField`, `NativeSelect`, `InputGroup`, `Slider`, `Tabs`, `CodeBlock`, `Accordion`, `Collapsible`, `AspectRatio`, `ButtonGroup`, `Breadcrumb`, `Pagination`, `ScrollArea`, `Toggle`, `ToggleGroup`, `Typography`, `Icon`.
 - Basisklassen: `UiComponent`, `BaseComponent`, `CssClasses`, `ThemeManager`.
 - Demo: Startseite, Komponentenansicht mit kategorisierten Preview/Java-Code-Beispielen, Form-Foundation-Beispiele, Layout-/Navigation-Beispiele, Themeansicht.
 - Tailwind 3 ist eingerichtet und wird ueber `frontend-maven-plugin` ausgefuehrt.
-- Aktueller Arbeitsstand: Milestone 4 Layout And Navigation Components ist auf Branch `milestone-4-layout-navigation` in Arbeit.
+- Aktueller Arbeitsstand: Milestone 6 Icon System Foundation ist auf Branch `milestone-6-icon-system-foundation` in Arbeit.
