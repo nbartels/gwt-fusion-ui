@@ -1,37 +1,37 @@
 # GWT Fusion
 
-GWT Fusion ist ein Maven-Multi-Modul-Projekt fuer eine GWT 2.13 und J2CL-kompatible UI-Komponentenbibliothek.
+GWT Fusion is a Maven multi-module project for a GWT 2.13 and J2CL-compatible UI component library.
 
-## Module
+## Modules
 
-- `gwt-fusion-ui`: Komponentenbibliothek unter `org.gwtfusion.ui`.
-- `gwt-fusion-icons-lucide`: Optionales Lucide-Icon-Modul, getrennt von der Core-UI.
-- `gwt-fusion-ui-demo`: Beispiel-Webseite mit visuellen Komponenten und Java-Codebeispielen.
+- `gwt-fusion-ui`: Component library under `org.gwtfusion.ui`.
+- `gwt-fusion-icons-lucide`: Optional Lucide icon module, separate from the core UI.
+- `gwt-fusion-ui-demo`: Example web application with visual component demos and Java code samples.
 
 ## Build
 
-Schneller JVM-Build ohne Tailwind/Node-Download:
+Fast JVM build without Tailwind/Node download:
 
 ```bash
 mvn -Dskip.tailwind=true verify
 ```
 
-CSS-Build fuer die UI-Library:
+CSS build for the UI library:
 
 ```bash
 mvn -pl gwt-fusion-ui generate-resources
 ```
 
-Demo-GWT-Compile ist vorbereitet:
+Demo GWT compile is prepared:
 
 ```bash
 mvn -Pdemo -pl gwt-fusion-ui-demo -am -Dskip.tailwind=true package
 ```
 
-## Beispiel
+## Example
 
 ```java
-Button button = Button.create("Speichern")
+Button button = Button.create("Save")
     .variant(ButtonVariant.DEFAULT)
     .size(ButtonSize.MD);
 ```
@@ -54,53 +54,35 @@ Slider.create()
     });
 ```
 
-## Aktuelle Komponenten
+## Current Components
 
-- `Button`
-- `Badge`
-- `Card`
-- `Alert`
-- `Input`
-- `Label`
-- `Separator`
-- `Checkbox`
-- `Switch`
-- `Textarea`
-- `RadioGroup`
-- `FormField`
-- `FormLabel`
-- `FormDescription`
-- `FormMessage`
-- `NativeSelect`
-- `InputGroup`
-- `Slider`
-- `Tabs`
-- `CodeBlock`
-- `Accordion`
-- `Collapsible`
-- `AspectRatio`
-- `ButtonGroup`
-- `Breadcrumb`
-- `Pagination`
-- `ScrollArea`
-- `Toggle`
-- `ToggleGroup`
-- `Typography`
-- `Icon`
+| | | |
+|---|---|---|
+| `Accordion` | `FormField` | `RadioGroup` |
+| `Alert` | `FormLabel` | `ScrollArea` |
+| `AspectRatio` | `FormMessage` | `Separator` |
+| `Badge` | `Icon` | `Slider` |
+| `Breadcrumb` | `Input` | `Switch` |
+| `Button` | `InputGroup` | `Tabs` |
+| `ButtonGroup` | `Label` | `Textarea` |
+| `Card` | `NativeSelect` | `Toggle` |
+| `Checkbox` | `Pagination` | `ToggleGroup` |
+| `CodeBlock` | `FormDescription` | `Typography` |
+| `Collapsible` | | |
 
-## Designprinzipien
+## Design Principles
 
-- DOM-basiert mit `elemental2.dom`.
-- Tailwind CSS fuer Styling.
-- shadcn-inspirierte Theme Tokens.
-- Java-typische API mit Enums und fluenten Methoden.
-- Keine harte Kopplung an klassische GWT Widgets.
-- Code-Splitting auf Anwendungsebene, in der Demo ueber `GWT.runAsync` sichtbar gemacht.
+- DOM-based using `elemental2.dom`.
+- Tailwind CSS for styling.
+- shadcn-inspired theme tokens.
+- Java-idiomatic API with enums and fluent methods.
+- No hard coupling to classic GWT Widgets.
+- Code-splitting at the application level, demonstrated via `GWT.runAsync` in the demo.
 
-Weitere API-Details:
+Further API details:
 
 - `docs/events.md`
 - `docs/icons.md`
 - `docs/icon-modules.md`
 
-Weitere Entwicklungsregeln stehen in `AGENTS.md`.
+Development rules are in `AGENTS.md`.
