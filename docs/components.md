@@ -1,6 +1,6 @@
-# Komponenten
+# Components
 
-## Implementiert
+## Implemented
 
 - Button
 - Badge
@@ -43,7 +43,7 @@
 - Sheet
 - Drawer
 
-## Naechste Kandidaten
+## Next Candidates
 
 - InputOtp
 - Select
@@ -51,10 +51,10 @@
 - Sidebar
 - Menubar
 
-## Komponentenvertrag
+## Component Contract
 
-- Komponente implementiert `UiComponent`.
-- Root-Element kommt ueber `element()`.
-- Varianten und Groessen werden ueber Enums modelliert.
-- Tailwind-Klassen sind statisch oder safelisted.
-- Accessibility-Attribute gehoeren in die Komponente, wenn sie fuer korrektes Verhalten notwendig sind.
+- Components implement `UiComponent`.
+- The root element is exposed through `element()`.
+- Variants and sizes are modeled with enums.
+- Tailwind classes are static or safelisted.
+- Accessibility attributes belong in the component when they are required for correct behavior.
