@@ -64,6 +64,7 @@ import org.gwtfusion.ui.overlay.IdGenerator;
 import org.gwtfusion.ui.overlay.Keyboard;
 import org.gwtfusion.ui.overlay.OutsideClick;
 import org.gwtfusion.ui.overlay.OverlayLayer;
+import org.gwtfusion.ui.overlay.OverlaySide;
 import org.gwtfusion.ui.overlay.Portal;
 import org.gwtfusion.ui.theme.ThemeManager;
 import org.gwtfusion.ui.theme.ThemeMode;
@@ -767,10 +768,12 @@ public final class DemoApp implements EntryPoint {
 
         HTMLElement floating = preview();
         floating.appendChild(Popover.create()
+                .side(OverlaySide.BOTTOM)
                 .trigger(Button.create("Open popover").variant(ButtonVariant.OUTLINE))
                 .content(raw(textElement("p", "demo-muted", "Popover is non-modal and closes on outside click or Escape.")))
                 .element());
         floating.appendChild(Tooltip.create("Tooltips open on hover and focus.")
+                .side(OverlaySide.RIGHT)
                 .trigger(Button.create("Hover or focus me").variant(ButtonVariant.SECONDARY))
                 .element());
         floating.appendChild(HoverCard.create()
@@ -779,9 +782,11 @@ public final class DemoApp implements EntryPoint {
                 .element());
         grid.appendChild(example("Popover, Tooltip, and HoverCard", floating,
                 "Popover.create()\n"
+                        + "    .side(OverlaySide.BOTTOM)\n"
                         + "    .trigger(Button.create(\"Open popover\"))\n"
                         + "    .content(raw(content));\n\n"
                         + "Tooltip.create(\"Tooltips open on hover and focus.\")\n"
+                        + "    .side(OverlaySide.RIGHT)\n"
                         + "    .trigger(Button.create(\"Hover or focus me\"));\n\n"
                         + "HoverCard.create()\n"
                         + "    .trigger(Button.create(\"Hover card\"))\n"
@@ -790,12 +795,14 @@ public final class DemoApp implements EntryPoint {
         HTMLElement menus = preview("demo-stack-preview");
         HTMLElement menuStatus = textElement("p", "demo-muted", "No menu item selected yet.");
         DropdownMenu dropdownMenu = DropdownMenu.create()
+                .side(OverlaySide.BOTTOM)
                 .trigger(Button.create("Open menu").variant(ButtonVariant.OUTLINE))
                 .addItem("profile", "Profile")
                 .addItem("billing", "Billing")
                 .addItem("logout", "Log out");
         dropdownMenu.onValueChange(value -> menuStatus.textContent = "Dropdown selected: " + value);
         ContextMenu contextMenu = ContextMenu.create()
+                .side(OverlaySide.RIGHT)
                 .target(Button.create("Right-click target").variant(ButtonVariant.SECONDARY))
                 .addItem("copy", "Copy")
                 .addItem("paste", "Paste")
@@ -807,10 +814,12 @@ public final class DemoApp implements EntryPoint {
         menus.appendChild(textElement("p", "demo-muted", "Menu items support ArrowUp, ArrowDown, Home, End, Enter, Space, and Escape."));
         grid.appendChild(example("DropdownMenu and ContextMenu", menus,
                 "DropdownMenu.create()\n"
+                        + "    .side(OverlaySide.BOTTOM)\n"
                         + "    .trigger(Button.create(\"Open menu\"))\n"
                         + "    .addItem(\"profile\", \"Profile\")\n"
                         + "    .onValueChange(value -> { ... });\n\n"
                         + "ContextMenu.create()\n"
+                        + "    .side(OverlaySide.RIGHT)\n"
                         + "    .target(Button.create(\"Right-click target\"))\n"
                         + "    .addItem(\"copy\", \"Copy\");"));
 

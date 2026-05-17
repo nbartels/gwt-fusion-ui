@@ -3,6 +3,7 @@ package org.gwtfusion.ui.component.contextmenu;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.KeyboardEvent;
+import elemental2.dom.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import org.gwtfusion.ui.BaseComponent;
@@ -13,12 +14,14 @@ import org.gwtfusion.ui.overlay.FocusManager;
 import org.gwtfusion.ui.overlay.IdGenerator;
 import org.gwtfusion.ui.overlay.Keyboard;
 import org.gwtfusion.ui.overlay.OutsideClick;
+import org.gwtfusion.ui.overlay.OverlaySide;
 import org.gwtfusion.ui.overlay.Portal;
 
 public final class ContextMenu extends BaseComponent<ContextMenu> {
     public static final String ROOT_CLASSES = "inline-flex";
-    public static final String MENU_CLASSES = "fixed left-1/2 top-1/2 z-50 grid min-w-40 -translate-x-1/2 -translate-y-1/2 gap-1 rounded-md border border-border bg-background p-1 text-sm text-foreground shadow-lg";
+    public static final String MENU_CLASSES = "fixed z-50 grid min-w-40 gap-1 rounded-md border border-border bg-background p-1 text-sm text-foreground shadow-lg";
     public static final String ITEM_CLASSES = DropdownMenuItemClasses.ITEM_CLASSES;
+    public static final int OFFSET = 4;
 
     private final IdGenerator ids = IdGenerator.create("context-menu");
     private final String menuId = ids.next("content");
@@ -28,6 +31,9 @@ public final class ContextMenu extends BaseComponent<ContextMenu> {
     private HTMLElement menu;
     private ListenerRegistration cleanup = ListenerRegistration.empty();
     private String value = "";
+    private double clientX;
+    private double clientY;
+    private OverlaySide side = OverlaySide.BOTTOM;
     private boolean open;
 
     private ContextMenu(HTMLElement element) {
@@ -48,6 +54,12 @@ public final class ContextMenu extends BaseComponent<ContextMenu> {
         targetElement.setAttribute("aria-controls", menuId);
         targetElement.addEventListener("contextmenu", event -> {
             event.preventDefault();
+            MouseEvent mouseEvent = (MouseEvent) event;
+            clientX = mouseEvent.clientX;
+            clientY = mouseEvent.clientY;
+            if (open) {
+                open(false);
+            }
             open(true);
         });
         element().appendChild(targetElement);
@@ -56,6 +68,11 @@ public final class ContextMenu extends BaseComponent<ContextMenu> {
 
     public ContextMenu addItem(String value, String label) {
         items.add(new Item(value == null ? "" : value, label == null ? "" : label));
+        return this;
+    }
+
+    public ContextMenu side(OverlaySide side) {
+        this.side = side == null ? OverlaySide.BOTTOM : side;
         return this;
     }
 
@@ -104,7 +121,9 @@ public final class ContextMenu extends BaseComponent<ContextMenu> {
             menu.appendChild(itemElement);
         }
         menu.addEventListener("keydown", event -> onKeyDown((KeyboardEvent) event));
-        cleanup = ListenerRegistration.combine(OutsideClick.listen(menu, event -> open(false)), Portal.appendToBody(menu));
+        ListenerRegistration portal = Portal.appendToBody(menu);
+        positionAtPointer();
+        cleanup = ListenerRegistration.combine(OutsideClick.listen(menu, event -> open(false)), portal);
         focusItem(0);
     }
 
@@ -157,6 +176,29 @@ public final class ContextMenu extends BaseComponent<ContextMenu> {
         } else {
             FocusManager.focus(menu);
         }
+    }
+
+    private void positionAtPointer() {
+        if (menu == null) {
+            return;
+        }
+        double left;
+        double top;
+        if (side == OverlaySide.RIGHT) {
+            left = clientX + OFFSET;
+            top = clientY;
+        } else if (side == OverlaySide.TOP) {
+            left = clientX;
+            top = clientY - menu.offsetHeight - OFFSET;
+        } else if (side == OverlaySide.LEFT) {
+            left = clientX - menu.offsetWidth - OFFSET;
+            top = clientY;
+        } else {
+            left = clientX;
+            top = clientY + OFFSET;
+        }
+        menu.style.left = left + "px";
+        menu.style.top = top + "px";
     }
 
     private static final class Item {

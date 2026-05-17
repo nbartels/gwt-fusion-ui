@@ -31,12 +31,12 @@ Overlay components should compose these utilities instead of adding separate glo
 
 ## Components
 
-- `Tooltip`: opens on hover and focus and renders `role="tooltip"` content.
-- `Popover`: non-modal trigger/content overlay with outside-click and Escape handling.
+- `Tooltip`: opens on hover and focus, renders `role="tooltip"` content, and supports `OverlaySide.TOP`, `RIGHT`, `BOTTOM`, and `LEFT` placement.
+- `Popover`: non-modal trigger/content overlay with outside-click, Escape handling, and configurable `OverlaySide` placement.
 - `Dialog`: modal overlay with `aria-modal`, Escape handling, backdrop click close, and focus return.
 - `AlertDialog`: `Dialog` wrapper using `role="alertdialog"` for confirmation flows.
-- `DropdownMenu`: trigger menu with menu roles and Arrow/Home/End/Enter/Space/Escape keyboard support.
-- `ContextMenu`: right-click menu using the same menu keyboard behavior.
+- `DropdownMenu`: trigger menu with menu roles, configurable `OverlaySide` placement, and Arrow/Home/End/Enter/Space/Escape keyboard support.
+- `ContextMenu`: right-click menu using the same menu keyboard behavior and configurable `OverlaySide` pointer offset direction.
 - `HoverCard`: hover/focus-triggered rich content panel.
 - `Sheet`: modal edge panel built on `Dialog` behavior.
 - `Drawer`: modal bottom panel built on `Dialog` behavior.
