@@ -17,12 +17,14 @@ import org.gwtfusion.ui.overlay.FocusManager;
 import org.gwtfusion.ui.overlay.IdGenerator;
 import org.gwtfusion.ui.overlay.Keyboard;
 import org.gwtfusion.ui.overlay.OutsideClick;
+import org.gwtfusion.ui.overlay.OverlaySide;
 import org.gwtfusion.ui.overlay.Portal;
 
 public final class DropdownMenu extends BaseComponent<DropdownMenu> {
     public static final String ROOT_CLASSES = "inline-flex";
-    public static final String MENU_CLASSES = "fixed left-1/2 top-1/2 z-50 grid min-w-40 -translate-x-1/2 -translate-y-1/2 gap-1 rounded-md border border-border bg-background p-1 text-sm text-foreground shadow-lg";
+    public static final String MENU_CLASSES = "fixed z-50 grid min-w-40 gap-1 rounded-md border border-border bg-background p-1 text-sm text-foreground shadow-lg";
     public static final String ITEM_CLASSES = "w-full rounded px-2 py-1.5 text-left hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
+    public static final int OFFSET = 4;
 
     private final IdGenerator ids = IdGenerator.create("dropdown-menu");
     private final String menuId = ids.next("content");
@@ -35,6 +37,7 @@ public final class DropdownMenu extends BaseComponent<DropdownMenu> {
     private HTMLElement menu;
     private ListenerRegistration cleanup = ListenerRegistration.empty();
     private String value = "";
+    private OverlaySide side = OverlaySide.BOTTOM;
     private boolean open;
 
     private DropdownMenu(HTMLElement element) {
@@ -59,6 +62,11 @@ public final class DropdownMenu extends BaseComponent<DropdownMenu> {
 
     public DropdownMenu addItem(String value, String label) {
         items.add(new Item(value == null ? "" : value, label == null ? "" : label));
+        return this;
+    }
+
+    public DropdownMenu side(OverlaySide side) {
+        this.side = side == null ? OverlaySide.BOTTOM : side;
         return this;
     }
 
@@ -114,6 +122,7 @@ public final class DropdownMenu extends BaseComponent<DropdownMenu> {
         }
         menu.addEventListener("keydown", event -> onKeyDown((KeyboardEvent) event));
         ListenerRegistration portal = Portal.appendToBody(menu);
+        positionAtTrigger();
         ListenerRegistration outside = OutsideClick.listen(menu, event -> {
             if (!isTriggerEvent(event)) {
                 open(false);
@@ -190,6 +199,30 @@ public final class DropdownMenu extends BaseComponent<DropdownMenu> {
     private boolean isTriggerEvent(Event event) {
         EventTarget target = event.target;
         return trigger != null && target instanceof Node && trigger.contains((Node) target);
+    }
+
+    private void positionAtTrigger() {
+        if (trigger == null || menu == null) {
+            return;
+        }
+        elemental2.dom.DOMRect rect = trigger.getBoundingClientRect();
+        double left;
+        double top;
+        if (side == OverlaySide.RIGHT) {
+            left = rect.right + OFFSET;
+            top = rect.top;
+        } else if (side == OverlaySide.TOP) {
+            left = rect.left;
+            top = rect.top - menu.offsetHeight - OFFSET;
+        } else if (side == OverlaySide.LEFT) {
+            left = rect.left - menu.offsetWidth - OFFSET;
+            top = rect.top;
+        } else {
+            left = rect.left;
+            top = rect.bottom + OFFSET;
+        }
+        menu.style.left = left + "px";
+        menu.style.top = top + "px";
     }
 
     private static final class Item {

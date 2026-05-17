@@ -9,11 +9,13 @@ import org.gwtfusion.ui.UiComponent;
 import org.gwtfusion.ui.event.ListenerRegistration;
 import org.gwtfusion.ui.event.ValueChangeListener;
 import org.gwtfusion.ui.overlay.IdGenerator;
+import org.gwtfusion.ui.overlay.OverlaySide;
 import org.gwtfusion.ui.overlay.Portal;
 
 public final class Tooltip extends BaseComponent<Tooltip> {
     public static final String ROOT_CLASSES = "inline-flex";
-    public static final String CONTENT_CLASSES = "fixed left-1/2 top-1/2 z-50 max-w-xs -translate-x-1/2 -translate-y-1/2 rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow-lg";
+    public static final String CONTENT_CLASSES = "fixed z-50 max-w-xs rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow-lg";
+    public static final int OFFSET = 6;
 
     private final IdGenerator ids = IdGenerator.create("tooltip");
     private final String tooltipId = ids.next("content");
@@ -22,6 +24,7 @@ public final class Tooltip extends BaseComponent<Tooltip> {
     private HTMLElement tooltip;
     private ListenerRegistration portal = ListenerRegistration.empty();
     private String text = "";
+    private OverlaySide side = OverlaySide.TOP;
     private boolean open;
 
     private Tooltip(HTMLElement element) {
@@ -49,6 +52,11 @@ public final class Tooltip extends BaseComponent<Tooltip> {
 
     public Tooltip label(String text) {
         this.text = text == null ? "" : text;
+        return this;
+    }
+
+    public Tooltip side(OverlaySide side) {
+        this.side = side == null ? OverlaySide.TOP : side;
         return this;
     }
 
@@ -82,6 +90,7 @@ public final class Tooltip extends BaseComponent<Tooltip> {
         tooltip.setAttribute("role", "tooltip");
         tooltip.textContent = text;
         portal = Portal.appendToBody(tooltip);
+        positionAtTrigger();
     }
 
     private void unmount() {
@@ -94,5 +103,29 @@ public final class Tooltip extends BaseComponent<Tooltip> {
         for (ValueChangeListener<Boolean> listener : new ArrayList<>(openChangeListeners)) {
             listener.onValueChange(open);
         }
+    }
+
+    private void positionAtTrigger() {
+        if (trigger == null || tooltip == null) {
+            return;
+        }
+        elemental2.dom.DOMRect rect = trigger.getBoundingClientRect();
+        double left;
+        double top;
+        if (side == OverlaySide.RIGHT) {
+            left = rect.right + OFFSET;
+            top = rect.top + (rect.height - tooltip.offsetHeight) / 2;
+        } else if (side == OverlaySide.BOTTOM) {
+            left = rect.left + (rect.width - tooltip.offsetWidth) / 2;
+            top = rect.bottom + OFFSET;
+        } else if (side == OverlaySide.LEFT) {
+            left = rect.left - tooltip.offsetWidth - OFFSET;
+            top = rect.top + (rect.height - tooltip.offsetHeight) / 2;
+        } else {
+            left = rect.left + (rect.width - tooltip.offsetWidth) / 2;
+            top = rect.top - tooltip.offsetHeight - OFFSET;
+        }
+        tooltip.style.left = left + "px";
+        tooltip.style.top = top + "px";
     }
 }

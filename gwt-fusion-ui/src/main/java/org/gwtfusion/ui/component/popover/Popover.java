@@ -17,11 +17,13 @@ import org.gwtfusion.ui.overlay.FocusManager;
 import org.gwtfusion.ui.overlay.IdGenerator;
 import org.gwtfusion.ui.overlay.Keyboard;
 import org.gwtfusion.ui.overlay.OutsideClick;
+import org.gwtfusion.ui.overlay.OverlaySide;
 import org.gwtfusion.ui.overlay.Portal;
 
 public final class Popover extends BaseComponent<Popover> {
     public static final String ROOT_CLASSES = "inline-flex";
-    public static final String CONTENT_CLASSES = "fixed left-1/2 top-1/2 z-50 grid w-72 -translate-x-1/2 -translate-y-1/2 gap-3 rounded-md border border-border bg-background p-4 text-sm text-foreground shadow-lg";
+    public static final String CONTENT_CLASSES = "fixed z-50 grid w-72 gap-3 rounded-md border border-border bg-background p-4 text-sm text-foreground shadow-lg";
+    public static final int OFFSET = 4;
 
     private final IdGenerator ids = IdGenerator.create("popover");
     private final String contentId = ids.next("content");
@@ -31,6 +33,7 @@ public final class Popover extends BaseComponent<Popover> {
     private HTMLElement contentElement;
     private UiComponent content;
     private ListenerRegistration cleanup = ListenerRegistration.empty();
+    private OverlaySide side = OverlaySide.BOTTOM;
     private boolean open;
 
     private Popover(HTMLElement element) {
@@ -55,6 +58,11 @@ public final class Popover extends BaseComponent<Popover> {
 
     public Popover content(UiComponent content) {
         this.content = content;
+        return this;
+    }
+
+    public Popover side(OverlaySide side) {
+        this.side = side == null ? OverlaySide.BOTTOM : side;
         return this;
     }
 
@@ -91,6 +99,7 @@ public final class Popover extends BaseComponent<Popover> {
             contentElement.appendChild(content.element());
         }
         ListenerRegistration portal = Portal.appendToBody(contentElement);
+        positionAtTrigger();
         ListenerRegistration outside = OutsideClick.listen(contentElement, event -> {
             if (!isTriggerEvent(event)) {
                 open(false);
@@ -129,5 +138,29 @@ public final class Popover extends BaseComponent<Popover> {
     private boolean isTriggerEvent(Event event) {
         EventTarget target = event.target;
         return trigger != null && target instanceof Node && trigger.contains((Node) target);
+    }
+
+    private void positionAtTrigger() {
+        if (trigger == null || contentElement == null) {
+            return;
+        }
+        elemental2.dom.DOMRect rect = trigger.getBoundingClientRect();
+        double left;
+        double top;
+        if (side == OverlaySide.RIGHT) {
+            left = rect.right + OFFSET;
+            top = rect.top;
+        } else if (side == OverlaySide.TOP) {
+            left = rect.left;
+            top = rect.top - contentElement.offsetHeight - OFFSET;
+        } else if (side == OverlaySide.LEFT) {
+            left = rect.left - contentElement.offsetWidth - OFFSET;
+            top = rect.top;
+        } else {
+            left = rect.left;
+            top = rect.bottom + OFFSET;
+        }
+        contentElement.style.left = left + "px";
+        contentElement.style.top = top + "px";
     }
 }
