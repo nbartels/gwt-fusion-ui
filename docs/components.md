@@ -6,6 +6,7 @@
 - Badge
 - Card
 - Alert
+- AlertDialog
 - Input
 - Label
 - Separator
@@ -33,6 +34,14 @@
 - ToggleGroup
 - Typography
 - Icon
+- Tooltip
+- Popover
+- Dialog
+- DropdownMenu
+- ContextMenu
+- HoverCard
+- Sheet
+- Drawer
 
 ## Naechste Kandidaten
 
@@ -41,9 +50,6 @@
 - NavigationMenu
 - Sidebar
 - Menubar
-- Dialog
-- Dropdown
-- Tooltip
 
 ## Komponentenvertrag
 

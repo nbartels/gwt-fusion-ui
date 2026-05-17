@@ -124,6 +124,7 @@ Add interactive layered components. These require more attention to focus manage
 - `Tooltip` should support hover and focus triggers.
 - `HoverCard` can share positioning and trigger behavior with `Tooltip` and `Popover`.
 - `DropdownMenu` should support keyboard navigation before being considered complete.
+- `Tooltip`, `Popover`, `Dialog`, `AlertDialog`, `DropdownMenu`, `ContextMenu`, `HoverCard`, `Sheet`, and `Drawer` are implemented as the first overlay component set.
 - Avoid server-side Java APIs and reflection-based implementations.
 
 ### Demo Requirements

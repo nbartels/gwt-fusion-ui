@@ -58,17 +58,19 @@ Slider.create()
 
 | | | |
 |---|---|---|
-| `Accordion` | `FormField` | `RadioGroup` |
-| `Alert` | `FormLabel` | `ScrollArea` |
-| `AspectRatio` | `FormMessage` | `Separator` |
-| `Badge` | `Icon` | `Slider` |
-| `Breadcrumb` | `Input` | `Switch` |
-| `Button` | `InputGroup` | `Tabs` |
-| `ButtonGroup` | `Label` | `Textarea` |
-| `Card` | `NativeSelect` | `Toggle` |
-| `Checkbox` | `Pagination` | `ToggleGroup` |
-| `CodeBlock` | `FormDescription` | `Typography` |
-| `Collapsible` | | |
+| `Accordion` | `ContextMenu` | `RadioGroup` |
+| `Alert` | `Dialog` | `ScrollArea` |
+| `AlertDialog` | `Drawer` | `Separator` |
+| `AspectRatio` | `DropdownMenu` | `Sheet` |
+| `Badge` | `FormDescription` | `Slider` |
+| `Breadcrumb` | `FormField` | `Switch` |
+| `Button` | `FormLabel` | `Tabs` |
+| `ButtonGroup` | `FormMessage` | `Textarea` |
+| `Card` | `HoverCard` | `Toggle` |
+| `Checkbox` | `Icon` | `ToggleGroup` |
+| `CodeBlock` | `Input` | `Tooltip` |
+| `Collapsible` | `InputGroup` | `Typography` |
+| `NativeSelect` | `Pagination` | `Popover` |
 
 ## Design Principles
 
