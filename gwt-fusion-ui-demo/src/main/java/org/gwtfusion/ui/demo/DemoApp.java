@@ -11,6 +11,7 @@ import org.gwtfusion.icons.lucide.LucideIcons;
 import org.gwtfusion.ui.UiComponent;
 import org.gwtfusion.ui.component.alert.Alert;
 import org.gwtfusion.ui.component.alert.AlertVariant;
+import org.gwtfusion.ui.component.alertdialog.AlertDialog;
 import org.gwtfusion.ui.component.accordion.Accordion;
 import org.gwtfusion.ui.component.aspectratio.AspectRatio;
 import org.gwtfusion.ui.component.badge.Badge;
@@ -24,7 +25,12 @@ import org.gwtfusion.ui.component.card.Card;
 import org.gwtfusion.ui.component.checkbox.Checkbox;
 import org.gwtfusion.ui.component.code.CodeBlock;
 import org.gwtfusion.ui.component.collapsible.Collapsible;
+import org.gwtfusion.ui.component.contextmenu.ContextMenu;
+import org.gwtfusion.ui.component.dialog.Dialog;
+import org.gwtfusion.ui.component.drawer.Drawer;
+import org.gwtfusion.ui.component.dropdown.DropdownMenu;
 import org.gwtfusion.ui.component.form.FormField;
+import org.gwtfusion.ui.component.hovercard.HoverCard;
 import org.gwtfusion.ui.component.icon.IconRegistry;
 import org.gwtfusion.ui.component.icon.IconSize;
 import org.gwtfusion.ui.component.icon.IconVariant;
@@ -32,18 +38,22 @@ import org.gwtfusion.ui.component.input.Input;
 import org.gwtfusion.ui.component.inputgroup.InputGroup;
 import org.gwtfusion.ui.component.label.Label;
 import org.gwtfusion.ui.component.pagination.Pagination;
+import org.gwtfusion.ui.component.popover.Popover;
 import org.gwtfusion.ui.component.radio.RadioGroup;
 import org.gwtfusion.ui.component.radio.RadioGroupOrientation;
 import org.gwtfusion.ui.component.scrollarea.ScrollArea;
 import org.gwtfusion.ui.component.select.NativeSelect;
 import org.gwtfusion.ui.component.separator.Separator;
 import org.gwtfusion.ui.component.separator.SeparatorOrientation;
+import org.gwtfusion.ui.component.sheet.Sheet;
+import org.gwtfusion.ui.component.sheet.SheetSide;
 import org.gwtfusion.ui.component.slider.Slider;
 import org.gwtfusion.ui.component.switcher.Switch;
 import org.gwtfusion.ui.component.tabs.Tabs;
 import org.gwtfusion.ui.component.textarea.Textarea;
 import org.gwtfusion.ui.component.toggle.Toggle;
 import org.gwtfusion.ui.component.toggle.ToggleVariant;
+import org.gwtfusion.ui.component.tooltip.Tooltip;
 import org.gwtfusion.ui.component.togglegroup.ToggleGroup;
 import org.gwtfusion.ui.component.togglegroup.ToggleGroupType;
 import org.gwtfusion.ui.component.typography.Typography;
@@ -731,6 +741,101 @@ public final class DemoApp implements EntryPoint {
                         + "    }\n"
                         + "});\n"
                         + "FocusManager.focus(layer.element());"));
+
+        HTMLElement dialogs = preview();
+        dialogs.appendChild(Dialog.create()
+                .trigger(Button.create("Open dialog"))
+                .title("Edit profile")
+                .description("Dialog sets aria-modal, supports Escape, closes on backdrop click, and returns focus to the trigger.")
+                .content(raw(textElement("p", "demo-muted", "Use dialogs for focused tasks that should interrupt the current workflow.")))
+                .element());
+        dialogs.appendChild(AlertDialog.create()
+                .trigger(Button.create("Delete item").variant(ButtonVariant.DESTRUCTIVE))
+                .title("Are you absolutely sure?")
+                .description("AlertDialog uses role=alertdialog for destructive confirmations.")
+                .content(raw(textElement("p", "demo-muted", "Provide a clear escape path and make the primary destructive action explicit.")))
+                .element());
+        grid.appendChild(example("Dialog and AlertDialog", dialogs,
+                "Dialog.create()\n"
+                        + "    .trigger(Button.create(\"Open dialog\"))\n"
+                        + "    .title(\"Edit profile\")\n"
+                        + "    .description(\"Dialog sets aria-modal and returns focus.\")\n"
+                        + "    .content(raw(content));\n\n"
+                        + "AlertDialog.create()\n"
+                        + "    .trigger(Button.create(\"Delete item\").variant(ButtonVariant.DESTRUCTIVE))\n"
+                        + "    .title(\"Are you absolutely sure?\");"));
+
+        HTMLElement floating = preview();
+        floating.appendChild(Popover.create()
+                .trigger(Button.create("Open popover").variant(ButtonVariant.OUTLINE))
+                .content(raw(textElement("p", "demo-muted", "Popover is non-modal and closes on outside click or Escape.")))
+                .element());
+        floating.appendChild(Tooltip.create("Tooltips open on hover and focus.")
+                .trigger(Button.create("Hover or focus me").variant(ButtonVariant.SECONDARY))
+                .element());
+        floating.appendChild(HoverCard.create()
+                .trigger(Button.create("Hover card").variant(ButtonVariant.GHOST))
+                .content(raw(textElement("p", "demo-muted", "HoverCard shares the same trigger pattern as Tooltip, but can render richer content.")))
+                .element());
+        grid.appendChild(example("Popover, Tooltip, and HoverCard", floating,
+                "Popover.create()\n"
+                        + "    .trigger(Button.create(\"Open popover\"))\n"
+                        + "    .content(raw(content));\n\n"
+                        + "Tooltip.create(\"Tooltips open on hover and focus.\")\n"
+                        + "    .trigger(Button.create(\"Hover or focus me\"));\n\n"
+                        + "HoverCard.create()\n"
+                        + "    .trigger(Button.create(\"Hover card\"))\n"
+                        + "    .content(raw(content));"));
+
+        HTMLElement menus = preview("demo-stack-preview");
+        HTMLElement menuStatus = textElement("p", "demo-muted", "No menu item selected yet.");
+        DropdownMenu dropdownMenu = DropdownMenu.create()
+                .trigger(Button.create("Open menu").variant(ButtonVariant.OUTLINE))
+                .addItem("profile", "Profile")
+                .addItem("billing", "Billing")
+                .addItem("logout", "Log out");
+        dropdownMenu.onValueChange(value -> menuStatus.textContent = "Dropdown selected: " + value);
+        ContextMenu contextMenu = ContextMenu.create()
+                .target(Button.create("Right-click target").variant(ButtonVariant.SECONDARY))
+                .addItem("copy", "Copy")
+                .addItem("paste", "Paste")
+                .addItem("inspect", "Inspect");
+        contextMenu.onValueChange(value -> menuStatus.textContent = "Context menu selected: " + value);
+        menus.appendChild(dropdownMenu.element());
+        menus.appendChild(contextMenu.element());
+        menus.appendChild(menuStatus);
+        menus.appendChild(textElement("p", "demo-muted", "Menu items support ArrowUp, ArrowDown, Home, End, Enter, Space, and Escape."));
+        grid.appendChild(example("DropdownMenu and ContextMenu", menus,
+                "DropdownMenu.create()\n"
+                        + "    .trigger(Button.create(\"Open menu\"))\n"
+                        + "    .addItem(\"profile\", \"Profile\")\n"
+                        + "    .onValueChange(value -> { ... });\n\n"
+                        + "ContextMenu.create()\n"
+                        + "    .target(Button.create(\"Right-click target\"))\n"
+                        + "    .addItem(\"copy\", \"Copy\");"));
+
+        HTMLElement panels = preview();
+        panels.appendChild(Sheet.create()
+                .side(SheetSide.RIGHT)
+                .trigger(Button.create("Open sheet").variant(ButtonVariant.OUTLINE))
+                .title("Settings")
+                .description("Sheets slide from an edge and use the same modal behavior as Dialog.")
+                .content(raw(textElement("p", "demo-muted", "Use a sheet for secondary workflows that need more room than a popover.")))
+                .element());
+        panels.appendChild(Drawer.create()
+                .trigger(Button.create("Open drawer").variant(ButtonVariant.OUTLINE))
+                .title("Mobile drawer")
+                .description("Drawer uses a bottom sheet presentation for compact layouts.")
+                .content(raw(textElement("p", "demo-muted", "Drawers are useful for mobile navigation, filters, and contextual actions.")))
+                .element());
+        grid.appendChild(example("Sheet and Drawer", panels,
+                "Sheet.create()\n"
+                        + "    .side(SheetSide.RIGHT)\n"
+                        + "    .trigger(Button.create(\"Open sheet\"))\n"
+                        + "    .title(\"Settings\");\n\n"
+                        + "Drawer.create()\n"
+                        + "    .trigger(Button.create(\"Open drawer\"))\n"
+                        + "    .title(\"Mobile drawer\");"));
     }
 
     private void renderFeedback(HTMLElement grid) {

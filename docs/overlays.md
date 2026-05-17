@@ -1,6 +1,6 @@
 # Overlay Infrastructure
 
-`gwt-fusion-ui` provides small overlay primitives under `org.gwtfusion.ui.overlay`. They are intended for components such as `Dialog`, `Popover`, `Tooltip`, `DropdownMenu`, and the richer `Select`.
+`gwt-fusion-ui` provides small overlay primitives under `org.gwtfusion.ui.overlay`. They back components such as `Dialog`, `Popover`, `Tooltip`, `DropdownMenu`, and the richer `Select`.
 
 The utilities stay explicit and side-effect free where possible. DOM listeners and portals are only attached when application or component code calls the relevant method.
 
@@ -28,3 +28,17 @@ portal.remove();
 ```
 
 Overlay components should compose these utilities instead of adding separate global registries or static DOM initialization.
+
+## Components
+
+- `Tooltip`: opens on hover and focus and renders `role="tooltip"` content.
+- `Popover`: non-modal trigger/content overlay with outside-click and Escape handling.
+- `Dialog`: modal overlay with `aria-modal`, Escape handling, backdrop click close, and focus return.
+- `AlertDialog`: `Dialog` wrapper using `role="alertdialog"` for confirmation flows.
+- `DropdownMenu`: trigger menu with menu roles and Arrow/Home/End/Enter/Space/Escape keyboard support.
+- `ContextMenu`: right-click menu using the same menu keyboard behavior.
+- `HoverCard`: hover/focus-triggered rich content panel.
+- `Sheet`: modal edge panel built on `Dialog` behavior.
+- `Drawer`: modal bottom panel built on `Dialog` behavior.
+
+Overlay examples in the demo include accessibility notes for focus return, Escape handling, ARIA roles, and keyboard menu navigation.

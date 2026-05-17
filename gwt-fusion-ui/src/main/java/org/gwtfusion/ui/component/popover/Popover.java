@@ -1,0 +1,133 @@
+package org.gwtfusion.ui.component.popover;
+
+import elemental2.dom.DomGlobal;
+import elemental2.dom.Event;
+import elemental2.dom.EventTarget;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.KeyboardEvent;
+import elemental2.dom.Node;
+import java.util.ArrayList;
+import java.util.List;
+import org.gwtfusion.ui.BaseComponent;
+import org.gwtfusion.ui.UiComponent;
+import org.gwtfusion.ui.event.ListenerRegistration;
+import org.gwtfusion.ui.event.ValueChangeListener;
+import org.gwtfusion.ui.overlay.Aria;
+import org.gwtfusion.ui.overlay.FocusManager;
+import org.gwtfusion.ui.overlay.IdGenerator;
+import org.gwtfusion.ui.overlay.Keyboard;
+import org.gwtfusion.ui.overlay.OutsideClick;
+import org.gwtfusion.ui.overlay.Portal;
+
+public final class Popover extends BaseComponent<Popover> {
+    public static final String ROOT_CLASSES = "inline-flex";
+    public static final String CONTENT_CLASSES = "fixed left-1/2 top-1/2 z-50 grid w-72 -translate-x-1/2 -translate-y-1/2 gap-3 rounded-md border border-border bg-background p-4 text-sm text-foreground shadow-lg";
+
+    private final IdGenerator ids = IdGenerator.create("popover");
+    private final String contentId = ids.next("content");
+    private final List<ValueChangeListener<Boolean>> openChangeListeners = new ArrayList<>();
+
+    private HTMLElement trigger;
+    private HTMLElement contentElement;
+    private UiComponent content;
+    private ListenerRegistration cleanup = ListenerRegistration.empty();
+    private boolean open;
+
+    private Popover(HTMLElement element) {
+        super(element);
+        classes(ROOT_CLASSES);
+    }
+
+    public static Popover create() {
+        return new Popover((HTMLElement) DomGlobal.document.createElement("div"));
+    }
+
+    public Popover trigger(UiComponent trigger) {
+        if (trigger == null) {
+            return this;
+        }
+        this.trigger = trigger.element();
+        Aria.buttonPopup(this.trigger, "dialog", contentId, open);
+        this.trigger.addEventListener("click", event -> open(!open));
+        element().appendChild(this.trigger);
+        return this;
+    }
+
+    public Popover content(UiComponent content) {
+        this.content = content;
+        return this;
+    }
+
+    public Popover open(boolean open) {
+        if (this.open == open) {
+            return this;
+        }
+        this.open = open;
+        if (open) {
+            mount();
+        } else {
+            unmount();
+        }
+        notifyOpenChange();
+        return this;
+    }
+
+    public boolean open() {
+        return open;
+    }
+
+    public ListenerRegistration onOpenChange(ValueChangeListener<Boolean> listener) {
+        openChangeListeners.add(listener);
+        return () -> openChangeListeners.remove(listener);
+    }
+
+    private void mount() {
+        contentElement = (HTMLElement) DomGlobal.document.createElement("div");
+        contentElement.className = CONTENT_CLASSES;
+        contentElement.setAttribute("id", contentId);
+        contentElement.setAttribute("role", "dialog");
+        contentElement.setAttribute("tabindex", "-1");
+        if (content != null) {
+            contentElement.appendChild(content.element());
+        }
+        ListenerRegistration portal = Portal.appendToBody(contentElement);
+        ListenerRegistration outside = OutsideClick.listen(contentElement, event -> {
+            if (!isTriggerEvent(event)) {
+                open(false);
+            }
+        });
+        contentElement.addEventListener("keydown", event -> {
+            KeyboardEvent keyEvent = (KeyboardEvent) event;
+            if (Keyboard.isEscape(keyEvent.key)) {
+                keyEvent.preventDefault();
+                open(false);
+            }
+        });
+        cleanup = ListenerRegistration.combine(outside, portal);
+        if (trigger != null) {
+            Aria.buttonPopup(trigger, "dialog", contentId, true);
+        }
+        FocusManager.focus(contentElement);
+    }
+
+    private void unmount() {
+        cleanup.remove();
+        cleanup = ListenerRegistration.empty();
+        contentElement = null;
+        if (trigger != null) {
+            Aria.buttonPopup(trigger, "dialog", contentId, false);
+            FocusManager.focus(trigger);
+        }
+    }
+
+    private void notifyOpenChange() {
+        for (ValueChangeListener<Boolean> listener : new ArrayList<>(openChangeListeners)) {
+            listener.onValueChange(open);
+        }
+    }
+
+    private boolean isTriggerEvent(Event event) {
+        EventTarget target = event.target;
+        return trigger != null && target instanceof Node && trigger.contains((Node) target);
+    }
+}

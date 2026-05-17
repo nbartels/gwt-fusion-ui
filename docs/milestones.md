@@ -146,22 +146,22 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 
 ## Milestone 9: Overlay Components
 
-- [ ] Implement `Tooltip` with hover and focus triggers.
-- [ ] Implement `Popover`.
-- [ ] Implement `Dialog`.
-- [ ] Add Escape handling to `Dialog`.
-- [ ] Add backdrop click handling to `Dialog`.
-- [ ] Add focus return to `Dialog`.
-- [ ] Add ARIA attributes to `Dialog`.
-- [ ] Implement `AlertDialog` using `Dialog` primitives where possible.
-- [ ] Implement `DropdownMenu` with keyboard navigation.
-- [ ] Implement `ContextMenu`.
-- [ ] Implement `HoverCard` sharing trigger/positioning behavior where possible.
-- [ ] Implement `Sheet`.
-- [ ] Implement `Drawer`.
-- [ ] Add overlay examples and accessibility notes to the demo.
-- [ ] Verify `mvn -Dskip.tailwind=true verify`.
-- [ ] Verify demo GWT compile.
+- [x] Implement `Tooltip` with hover and focus triggers.
+- [x] Implement `Popover`.
+- [x] Implement `Dialog`.
+- [x] Add Escape handling to `Dialog`.
+- [x] Add backdrop click handling to `Dialog`.
+- [x] Add focus return to `Dialog`.
+- [x] Add ARIA attributes to `Dialog`.
+- [x] Implement `AlertDialog` using `Dialog` primitives where possible.
+- [x] Implement `DropdownMenu` with keyboard navigation.
+- [x] Implement `ContextMenu`.
+- [x] Implement `HoverCard` sharing trigger/positioning behavior where possible.
+- [x] Implement `Sheet`.
+- [x] Implement `Drawer`.
+- [x] Add overlay examples and accessibility notes to the demo.
+- [x] Verify `mvn -Dskip.tailwind=true verify`.
+- [x] Verify demo GWT compile.
 
 ## Milestone 10: Feedback Components
 
