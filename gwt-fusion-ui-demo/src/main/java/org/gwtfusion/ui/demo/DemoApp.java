@@ -772,9 +772,21 @@ public final class DemoApp implements EntryPoint {
                 .trigger(Button.create("Open popover").variant(ButtonVariant.OUTLINE))
                 .content(raw(textElement("p", "demo-muted", "Popover is non-modal and closes on outside click or Escape.")))
                 .element());
-        floating.appendChild(Tooltip.create("Tooltips open on hover and focus.")
+        floating.appendChild(Tooltip.create("Tooltip above the trigger.")
+                .side(OverlaySide.TOP)
+                .trigger(Button.create("Tooltip top").variant(ButtonVariant.SECONDARY))
+                .element());
+        floating.appendChild(Tooltip.create("Tooltip to the right of the trigger.")
                 .side(OverlaySide.RIGHT)
-                .trigger(Button.create("Hover or focus me").variant(ButtonVariant.SECONDARY))
+                .trigger(Button.create("Tooltip right").variant(ButtonVariant.SECONDARY))
+                .element());
+        floating.appendChild(Tooltip.create("Tooltip below the trigger.")
+                .side(OverlaySide.BOTTOM)
+                .trigger(Button.create("Tooltip bottom").variant(ButtonVariant.SECONDARY))
+                .element());
+        floating.appendChild(Tooltip.create("Tooltip to the left of the trigger.")
+                .side(OverlaySide.LEFT)
+                .trigger(Button.create("Tooltip left").variant(ButtonVariant.SECONDARY))
                 .element());
         floating.appendChild(HoverCard.create()
                 .trigger(Button.create("Hover card").variant(ButtonVariant.GHOST))
@@ -785,9 +797,18 @@ public final class DemoApp implements EntryPoint {
                         + "    .side(OverlaySide.BOTTOM)\n"
                         + "    .trigger(Button.create(\"Open popover\"))\n"
                         + "    .content(raw(content));\n\n"
-                        + "Tooltip.create(\"Tooltips open on hover and focus.\")\n"
+                        + "Tooltip.create(\"Tooltip above the trigger.\")\n"
+                        + "    .side(OverlaySide.TOP)\n"
+                        + "    .trigger(Button.create(\"Tooltip top\"));\n\n"
+                        + "Tooltip.create(\"Tooltip to the right of the trigger.\")\n"
                         + "    .side(OverlaySide.RIGHT)\n"
-                        + "    .trigger(Button.create(\"Hover or focus me\"));\n\n"
+                        + "    .trigger(Button.create(\"Tooltip right\"));\n\n"
+                        + "Tooltip.create(\"Tooltip below the trigger.\")\n"
+                        + "    .side(OverlaySide.BOTTOM)\n"
+                        + "    .trigger(Button.create(\"Tooltip bottom\"));\n\n"
+                        + "Tooltip.create(\"Tooltip to the left of the trigger.\")\n"
+                        + "    .side(OverlaySide.LEFT)\n"
+                        + "    .trigger(Button.create(\"Tooltip left\"));\n\n"
                         + "HoverCard.create()\n"
                         + "    .trigger(Button.create(\"Hover card\"))\n"
                         + "    .content(raw(content));"));
