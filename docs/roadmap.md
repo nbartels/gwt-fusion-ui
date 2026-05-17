@@ -112,7 +112,7 @@ Add interactive layered components. These require more attention to focus manage
 ### Implementation Notes
 
 - Implement shared utilities before or during this phase, but keep them minimal.
-- Likely shared utilities:
+- Shared utilities implemented for the first overlay layer:
   - `Portal`
   - `FocusManager`
   - `OutsideClick`
