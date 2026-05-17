@@ -6,6 +6,7 @@ import com.google.gwt.core.client.RunAsyncCallback;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
+import elemental2.dom.KeyboardEvent;
 import org.gwtfusion.icons.lucide.LucideIcons;
 import org.gwtfusion.ui.UiComponent;
 import org.gwtfusion.ui.component.alert.Alert;
@@ -46,6 +47,14 @@ import org.gwtfusion.ui.component.toggle.ToggleVariant;
 import org.gwtfusion.ui.component.togglegroup.ToggleGroup;
 import org.gwtfusion.ui.component.togglegroup.ToggleGroupType;
 import org.gwtfusion.ui.component.typography.Typography;
+import org.gwtfusion.ui.event.ListenerRegistration;
+import org.gwtfusion.ui.overlay.Aria;
+import org.gwtfusion.ui.overlay.FocusManager;
+import org.gwtfusion.ui.overlay.IdGenerator;
+import org.gwtfusion.ui.overlay.Keyboard;
+import org.gwtfusion.ui.overlay.OutsideClick;
+import org.gwtfusion.ui.overlay.OverlayLayer;
+import org.gwtfusion.ui.overlay.Portal;
 import org.gwtfusion.ui.theme.ThemeManager;
 import org.gwtfusion.ui.theme.ThemeMode;
 
@@ -166,6 +175,12 @@ public final class DemoApp implements EntryPoint {
         renderEvents(eventsGrid);
         events.appendChild(eventsGrid);
         content.appendChild(events);
+
+        HTMLElement overlays = componentSection("overlays", "Overlays", "Shared portal, focus, keyboard, outside-click, and ARIA utilities for layered components.");
+        HTMLElement overlaysGrid = examplesGrid();
+        renderOverlays(overlaysGrid);
+        overlays.appendChild(overlaysGrid);
+        content.appendChild(overlays);
 
         HTMLElement feedback = componentSection("feedback", "Feedback", "Components for communicating status, warnings, and contextual messages.");
         HTMLElement feedbackGrid = examplesGrid();
@@ -655,6 +670,69 @@ public final class DemoApp implements EntryPoint {
                         + "});"));
     }
 
+    private void renderOverlays(HTMLElement grid) {
+        HTMLElement overlayPreview = preview("demo-stack-preview");
+        Button openButton = Button.create("Open overlay smoke").variant(ButtonVariant.OUTLINE);
+        HTMLElement status = textElement("p", "demo-muted", "Overlay is closed.");
+        IdGenerator ids = IdGenerator.create("overlay smoke");
+        String dialogId = ids.next("dialog");
+        String titleId = ids.next("title");
+        ListenerRegistration[] cleanup = new ListenerRegistration[] { ListenerRegistration.empty() };
+
+        Aria.buttonPopup(openButton.element(), "dialog", dialogId, false);
+        openButton.onClick(event -> {
+            cleanup[0].remove();
+
+            OverlayLayer layer = OverlayLayer.create().attr("tabindex", "-1");
+            layer.element().setAttribute("id", dialogId);
+            HTMLElement panel = element("div", "demo-overlay-panel");
+            Aria.dialog(panel, titleId, true);
+            HTMLElement title = textElement("h3", "", "Overlay infrastructure");
+            title.setAttribute("id", titleId);
+            panel.appendChild(title);
+            panel.appendChild(textElement("p", "demo-muted", "This smoke example uses Portal, OutsideClick, Keyboard, FocusManager, Aria, IdGenerator, and OverlayLayer."));
+            panel.appendChild(Button.create("Close")
+                    .variant(ButtonVariant.SECONDARY)
+                    .onClick(closeEvent -> cleanup[0].remove())
+                    .element());
+            layer.add(raw(panel));
+
+            ListenerRegistration portal = Portal.appendToBody(layer.element());
+            ListenerRegistration outside = OutsideClick.listen(panel, outsideEvent -> cleanup[0].remove());
+            ListenerRegistration escape = layer.listen("keydown", keyEvent -> {
+                if (Keyboard.isEscape(((KeyboardEvent) keyEvent).key)) {
+                    keyEvent.preventDefault();
+                    cleanup[0].remove();
+                }
+            });
+            cleanup[0] = () -> {
+                ListenerRegistration.combine(escape, outside, portal).remove();
+                cleanup[0] = ListenerRegistration.empty();
+                Aria.buttonPopup(openButton.element(), "dialog", dialogId, false);
+                status.textContent = "Overlay is closed.";
+                FocusManager.focus(openButton.element());
+            };
+            Aria.buttonPopup(openButton.element(), "dialog", dialogId, true);
+            status.textContent = "Overlay is open. Press Escape or click outside to close it.";
+            FocusManager.focus(layer.element());
+        });
+
+        overlayPreview.appendChild(openButton.element());
+        overlayPreview.appendChild(status);
+        grid.appendChild(example("Overlay utilities", overlayPreview,
+                "IdGenerator ids = IdGenerator.create(\"overlay smoke\");\n"
+                        + "OverlayLayer layer = OverlayLayer.create();\n"
+                        + "Aria.dialog(panel, titleId, true);\n"
+                        + "ListenerRegistration portal = Portal.appendToBody(layer.element());\n"
+                        + "ListenerRegistration outside = OutsideClick.listen(panel, event -> close());\n"
+                        + "layer.listen(\"keydown\", event -> {\n"
+                        + "    if (Keyboard.isEscape(((KeyboardEvent) event).key)) {\n"
+                        + "        close();\n"
+                        + "    }\n"
+                        + "});\n"
+                        + "FocusManager.focus(layer.element());"));
+    }
+
     private void renderFeedback(HTMLElement grid) {
         HTMLElement alerts = preview();
         alerts.appendChild(Alert.create()
@@ -684,6 +762,7 @@ public final class DemoApp implements EntryPoint {
         nav.appendChild(categoryLink("Layout", "#layout"));
         nav.appendChild(categoryLink("Forms", "#forms"));
         nav.appendChild(categoryLink("Events", "#events"));
+        nav.appendChild(categoryLink("Overlays", "#overlays"));
         nav.appendChild(categoryLink("Feedback", "#feedback"));
         return nav;
     }

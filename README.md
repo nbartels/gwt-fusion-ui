@@ -84,5 +84,6 @@ Further API details:
 - `docs/events.md`
 - `docs/icons.md`
 - `docs/icon-modules.md`
+- `docs/overlays.md`
 
 Development rules are in `AGENTS.md`.

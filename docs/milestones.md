@@ -130,19 +130,19 @@ This file turns the roadmap into concrete, checkable implementation milestones. 
 
 ## Milestone 8: Overlay Infrastructure
 
-- [ ] Implement `IdGenerator` for ARIA relationships.
-- [ ] Implement `Keyboard` utility.
-- [ ] Implement `OutsideClick` utility.
-- [ ] Implement `Portal` utility.
-- [ ] Implement `FocusManager` utility.
-- [ ] Implement `Aria` helper utility.
-- [ ] Implement minimal `OverlayLayer` if needed.
-- [ ] Ensure utilities avoid reflection and server-side Java APIs.
-- [ ] Ensure utilities avoid unnecessary static side effects.
-- [ ] Add JVM tests for pure utility behavior.
-- [ ] Add demo smoke examples where useful.
-- [ ] Verify `mvn -Dskip.tailwind=true verify`.
-- [ ] Verify demo GWT compile.
+- [x] Implement `IdGenerator` for ARIA relationships.
+- [x] Implement `Keyboard` utility.
+- [x] Implement `OutsideClick` utility.
+- [x] Implement `Portal` utility.
+- [x] Implement `FocusManager` utility.
+- [x] Implement `Aria` helper utility.
+- [x] Implement minimal `OverlayLayer` if needed.
+- [x] Ensure utilities avoid reflection and server-side Java APIs.
+- [x] Ensure utilities avoid unnecessary static side effects.
+- [x] Add JVM tests for pure utility behavior.
+- [x] Add demo smoke examples where useful.
+- [x] Verify `mvn -Dskip.tailwind=true verify`.
+- [x] Verify demo GWT compile.
 
 ## Milestone 9: Overlay Components
 

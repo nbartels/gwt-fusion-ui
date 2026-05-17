@@ -247,6 +247,24 @@ pre {
   gap: .5rem;
 }
 
+.demo-overlay-panel {
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: .75rem;
+  box-shadow: 0 24px 64px hsl(var(--foreground) / .18);
+  color: hsl(var(--foreground));
+  display: grid;
+  gap: .75rem;
+  max-width: min(28rem, calc(100vw - 2rem));
+  padding: 1.25rem;
+}
+
+.demo-overlay-panel h3 {
+  font-size: 1.125rem;
+  letter-spacing: -.03em;
+  margin: 0;
+}
+
 .demo-code {
   background: hsl(var(--muted));
   border-radius: .5rem;
